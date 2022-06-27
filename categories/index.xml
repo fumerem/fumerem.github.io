@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Categories on fumerem&#39;s blog</title>
+    <title>Categories on HUGO.386</title>
     <link>https://fumerem.github.io/categories/</link>
-    <description>Recent content in Categories on fumerem&#39;s blog</description>
+    <description>Recent content in Categories on HUGO.386</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Sun, 12 Jun 2022 23:00:52 +0800</lastBuildDate><atom:link href="https://fumerem.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
@@ -13,15 +13,6 @@
       <pubDate>Sun, 12 Jun 2022 23:00:52 +0800</pubDate>
       
       <guid>https://fumerem.github.io/categories/hack/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>me</title>
-      <link>https://fumerem.github.io/categories/me/</link>
-      <pubDate>Sun, 12 Jun 2022 17:15:54 +0800</pubDate>
-      
-      <guid>https://fumerem.github.io/categories/me/</guid>
       <description></description>
     </item>
     
