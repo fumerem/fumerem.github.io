@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on HUGO.386</title>
+    <link>https://example.com/categories/</link>
+    <description>Recent content in Categories on HUGO.386</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 12 Jun 2022 23:00:52 +0800</lastBuildDate><atom:link href="https://example.com/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>hack</title>
+      <link>https://example.com/categories/hack/</link>
+      <pubDate>Sun, 12 Jun 2022 23:00:52 +0800</pubDate>
+      
+      <guid>https://example.com/categories/hack/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>me</title>
+      <link>https://example.com/categories/me/</link>
+      <pubDate>Sun, 12 Jun 2022 17:15:54 +0800</pubDate>
+      
+      <guid>https://example.com/categories/me/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>programming</title>
+      <link>https://example.com/categories/programming/</link>
+      <pubDate>Sun, 12 Jun 2022 17:15:54 +0800</pubDate>
+      
+      <guid>https://example.com/categories/programming/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

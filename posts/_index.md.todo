@@ -1,0 +1,18 @@
++++
+title = "posts"
+date = 2022-06-12T17:15:54+08:00
+description = "My learning,thinking and ......Prefer to pursue the emptiness, also cannot have no pursuit."
+draft = false
+[[copyright]]
+  owner = "fumerem"
+  date = "2022"
+  license = "cc-by-nd-4.0"
++++
+
+{{< hackcss-alert type="info" >}}
+I learn about cybersecurity and programming
+<br>
+and my thinking and enlightenment
+<br>
+which works for me, doesn't work for others.
+{{< /hackcss-alert >}}

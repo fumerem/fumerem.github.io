@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>me on HUGO.386</title>
+    <link>https://example.com/categories/me/</link>
+    <description>Recent content in me on HUGO.386</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 12 Jun 2022 17:15:54 +0800</lastBuildDate><atom:link href="https://example.com/categories/me/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>about me</title>
+      <link>https://example.com/about/</link>
+      <pubDate>Sun, 12 Jun 2022 17:15:54 +0800</pubDate>
+      
+      <guid>https://example.com/about/</guid>
+      <description>&lt;!-- raw HTML omitted --&gt;
+&lt;p&gt;I&amp;rsquo;m fumerem.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://cplusplus.com/&#34;&gt;c++&lt;/a&gt; / &lt;a href=&#34;https://www.python.org/&#34;&gt;python&lt;/a&gt; / &lt;a href=&#34;https://www.rust-lang.org/&#34;&gt;rust&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://neovim.io/&#34;&gt;neovim&lt;/a&gt; / &lt;a href=&#34;https://code.visualstudio.com/&#34;&gt;vs code&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;you can find me here &lt;a href=&#34;https://github.com/fumerem&#34;&gt;https://github.com/fumerem&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;you can contact me &lt;a href=&#34;mailto:fumerem@gmail.com&#34;&gt;fumerem@gmail.com&lt;/a&gt; or &lt;a href=&#34;mailto:1187519105@qq.com&#34;&gt;1187519105@qq.com&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

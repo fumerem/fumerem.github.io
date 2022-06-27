@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>programming on HUGO.386</title>
+    <link>https://example.com/categories/programming/</link>
+    <description>Recent content in programming on HUGO.386</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 12 Jun 2022 17:15:54 +0800</lastBuildDate><atom:link href="https://example.com/categories/programming/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>rust编写shellcode加载器</title>
+      <link>https://example.com/posts/rust/rust%E7%BC%96%E5%86%99shellcode%E5%8A%A0%E8%BD%BD%E5%99%A8/</link>
+      <pubDate>Sun, 12 Jun 2022 17:15:54 +0800</pubDate>
+      
+      <guid>https://example.com/posts/rust/rust%E7%BC%96%E5%86%99shellcode%E5%8A%A0%E8%BD%BD%E5%99%A8/</guid>
+      <description>develop a shellcode loader by rust-lang.</description>
+    </item>
+    
+    <item>
+      <title>从底层了解rust的所有权机制</title>
+      <link>https://example.com/posts/rust/%E4%BB%8E%E5%BA%95%E5%B1%82%E4%BA%86%E8%A7%A3rust%E7%9A%84%E6%89%80%E6%9C%89%E6%9D%83%E6%9C%BA%E5%88%B6/</link>
+      <pubDate>Sun, 12 Jun 2022 17:15:54 +0800</pubDate>
+      
+      <guid>https://example.com/posts/rust/%E4%BB%8E%E5%BA%95%E5%B1%82%E4%BA%86%E8%A7%A3rust%E7%9A%84%E6%89%80%E6%9C%89%E6%9D%83%E6%9C%BA%E5%88%B6/</guid>
+      <description>learn about rust&amp;rsquo;s ownership.</description>
+    </item>
+    
+  </channel>
+</rss>
