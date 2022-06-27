@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on HUGO.386</title>
-    <link>https://example.com/tags/</link>
-    <description>Recent content in Tags on HUGO.386</description>
+    <title>Tags on fumerem&#39;s blog</title>
+    <link>https://fumerem.github.io/tags/</link>
+    <description>Recent content in Tags on fumerem&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 12 Jun 2022 23:00:52 +0800</lastBuildDate><atom:link href="https://example.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 12 Jun 2022 23:00:52 +0800</lastBuildDate><atom:link href="https://fumerem.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>渗透测试</title>
-      <link>https://example.com/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/</link>
+      <link>https://fumerem.github.io/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/</link>
       <pubDate>Sun, 12 Jun 2022 23:00:52 +0800</pubDate>
       
-      <guid>https://example.com/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/</guid>
+      <guid>https://fumerem.github.io/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/</guid>
       <description></description>
     </item>
     
     <item>
       <title>offensive_security</title>
-      <link>https://example.com/tags/offensive_security/</link>
+      <link>https://fumerem.github.io/tags/offensive_security/</link>
       <pubDate>Sun, 12 Jun 2022 17:15:54 +0800</pubDate>
       
-      <guid>https://example.com/tags/offensive_security/</guid>
+      <guid>https://fumerem.github.io/tags/offensive_security/</guid>
       <description></description>
     </item>
     
     <item>
       <title>rust</title>
-      <link>https://example.com/tags/rust/</link>
+      <link>https://fumerem.github.io/tags/rust/</link>
       <pubDate>Sun, 12 Jun 2022 17:15:54 +0800</pubDate>
       
-      <guid>https://example.com/tags/rust/</guid>
+      <guid>https://fumerem.github.io/tags/rust/</guid>
       <description></description>
     </item>
     

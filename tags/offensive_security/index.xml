@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>offensive_security on HUGO.386</title>
-    <link>https://example.com/tags/offensive_security/</link>
-    <description>Recent content in offensive_security on HUGO.386</description>
+    <title>offensive_security on fumerem&#39;s blog</title>
+    <link>https://fumerem.github.io/tags/offensive_security/</link>
+    <description>Recent content in offensive_security on fumerem&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 12 Jun 2022 17:15:54 +0800</lastBuildDate><atom:link href="https://example.com/tags/offensive_security/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 12 Jun 2022 17:15:54 +0800</lastBuildDate><atom:link href="https://fumerem.github.io/tags/offensive_security/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>rust编写shellcode加载器</title>
-      <link>https://example.com/posts/rust/rust%E7%BC%96%E5%86%99shellcode%E5%8A%A0%E8%BD%BD%E5%99%A8/</link>
+      <link>https://fumerem.github.io/posts/rust/rust%E7%BC%96%E5%86%99shellcode%E5%8A%A0%E8%BD%BD%E5%99%A8/</link>
       <pubDate>Sun, 12 Jun 2022 17:15:54 +0800</pubDate>
       
-      <guid>https://example.com/posts/rust/rust%E7%BC%96%E5%86%99shellcode%E5%8A%A0%E8%BD%BD%E5%99%A8/</guid>
+      <guid>https://fumerem.github.io/posts/rust/rust%E7%BC%96%E5%86%99shellcode%E5%8A%A0%E8%BD%BD%E5%99%A8/</guid>
       <description>develop a shellcode loader by rust-lang.</description>
     </item>
     
