@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="Fumerem">
+    <meta name="description" content="fumerem 的个人博客">
+    
+    
+    
+    <link rel="next" href="https://fumerem.github.io/2022/rust%E7%BC%96%E5%86%99shellcode%E5%8A%A0%E8%BD%BD%E5%99%A8/" />
+    <link rel="canonical" href="https://fumerem.github.io/2022/%E4%BB%8E%E5%BA%95%E5%B1%82%E4%BA%86%E8%A7%A3rust%E7%9A%84%E6%89%80%E6%9C%89%E6%9D%83%E6%9C%BA%E5%88%B6/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            从底层了解rust的所有权机制 | Fumerem&#39;s Blog
+        
+    </title>
+    <meta name="title" content="从底层了解rust的所有权机制 | Fumerem&#39;s Blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/fumerem.github.io"
+    },
+    "articleSection" : "posts",
+    "name" : "从底层了解rust的所有权机制",
+    "headline" : "从底层了解rust的所有权机制",
+    "description" : "rust有一处特殊的地方，所有权。 C\u002b\u002b和rust的区别 先看c\u002b\u002b #include \u0026lt;iostream\u0026gt; using namespace std; int main() { string str1 = \u0026#34;hello\u0026#34;; string str2 = str1; cout \u0026lt;\u0026lt; str1 \u0026lt;\u0026lt; str2; } 声明字符串str1，将str1",
+    "inLanguage" : "en",
+    "author" : "Fumerem",
+    "creator" : "Fumerem",
+    "publisher": "Fumerem",
+    "accountablePerson" : "Fumerem",
+    "copyrightHolder" : "Fumerem",
+    "copyrightYear" : "2022",
+    "datePublished": "2022-06-12 17:15:54 \u002b0800 CST",
+    "dateModified" : "2022-06-12 17:15:54 \u002b0800 CST",
+    "url" : "https:\/\/fumerem.github.io\/2022\/%E4%BB%8E%E5%BA%95%E5%B1%82%E4%BA%86%E8%A7%A3rust%E7%9A%84%E6%89%80%E6%9C%89%E6%9D%83%E6%9C%BA%E5%88%B6\/",
+    "wordCount" : "1354",
+    "keywords" : [ "rust", "Fumerem\u0027s Blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://fumerem.github.io">
+                    <span class="logo_text" >cd ~</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/posts/" title="">Posts</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://fumerem.github.io">Fumerem&#39;s Blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/posts/" title="">
+                            <h3>Posts</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">从底层了解rust的所有权机制</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://fumerem.github.io" rel="author">Fumerem</a> with ♥
+                <span class="post-time">
+                on <time datetime=2022-06-12 itemprop="datePublished">June 12, 2022</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://fumerem.github.io/categories/programming/"> programming, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">1354 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+            
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <p>rust有一处特殊的地方，所有权。</p>
+<h2 id="c和rust的区别">C++和rust的区别</h2>
+<p>先看c++</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    string str1 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;hello&#34;</span>;
+</span></span><span style="display:flex;"><span>    string str2 <span style="color:#f92672">=</span> str1;
+</span></span><span style="display:flex;"><span>    cout <span style="color:#f92672">&lt;&lt;</span> str1 <span style="color:#f92672">&lt;&lt;</span> str2;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>声明字符串str1，将str1的值赋值给str2，然后打印str1，str2，编译没有问题。</p>
+<p>再看rust</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">let</span> a <span style="color:#f92672">=</span> String::from(<span style="color:#e6db74">&#34;hello&#34;</span>);
+</span></span><span style="display:flex;"><span> 	<span style="color:#66d9ef">let</span> b <span style="color:#f92672">=</span> a;
+</span></span><span style="display:flex;"><span>    println!(<span style="color:#e6db74">&#34;{} {}&#34;</span>, a, b)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>编译一下</p>
+<p><img src="https://s2.loli.net/2022/04/04/7cdVm3u4oHSJ15e.png" alt=""></p>
+<p>好的，报错了，怎么回事呢。a的所有权已经移交给b，所以无法借用a。</p>
+<p>那么rust为什么要这么设计，不麻烦吗？</p>
+<h2 id="为什么设计所有权">为什么设计所有权</h2>
+<p>​	当今计算机内存栈和堆的分配机制，决定了编程语言中的值主要分两类：值类型（Value）和引用类型（Reference）。</p>
+<blockquote>
+<p>​	<strong>值类型：数据直接存储在栈中的数据类型</strong>，比如数值，布尔值，结构体。因为在栈中，操作效率比较高。值类型作为右值执行赋值时，会自动复制一个新副本。</p>
+<p>​	<strong>引用类型：数据存储在堆中，栈中储存值的地址（指针）</strong>，比如数组，字符串。操作效率一般比较低。像java，python等语言用GC回收，c，c++等系统语言须程序员手动回收。</p>
+</blockquote>
+<p>​	随着编程语言的发展，类型越来愈丰富，值类型和引用类型已无法完美描述类型。比如Vector容器类型，内部可以包含数值类型，也可以包含引用类型，它怎么分类？</p>
+<p>​	之后便引出了：<strong>值语义</strong>（Value Semantic）和<strong>引用语义</strong>（Reference Semantic）</p>
+<blockquote>
+<p>​	<strong>值语义</strong>：按位复制后，与原始对象无关</p>
+<p>​	<strong>引用语义</strong>：也称指针语义。一般指数据存放堆上，通过栈上的指针来管理堆中数据，并且引用语义禁止按位复制</p>
+</blockquote>
+<p>​	值语义保证了数据的独立性，如果想修改一个值，只能通过修改它自身来修改，无法通过修改它的复制品来修改。而引用语义禁止按位复制，因为按位复制只能复制栈上的指针，存放在堆的数值同时存在两个指针对它管理，影响内存安全。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> y <span style="color:#f92672">=</span> x;
+</span></span><span style="display:flex;"><span>    assert_eq!(x, <span style="color:#ae81ff">100</span>);
+</span></span><span style="display:flex;"><span>    assert_eq!(y, <span style="color:#ae81ff">100</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>​	x为整型，它作为右值赋值给y，编译器默认调用x的clone进行按位复制。复制完成后，y和x互相独立，互不影响。整型实现了Copy trait，其clone方法必须是按位复制的，不会对原数据造成破坏，不存在内存安全的问题。而C++，如果开发者疏忽，就可能存在内存安全问题。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">#[derive(Copy, Clone)]</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">A</span> {
+</span></span><span style="display:flex;"><span>    a: <span style="color:#66d9ef">i32</span>,
+</span></span><span style="display:flex;"><span>    b: Box<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">i32</span><span style="color:#f92672">&gt;</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {}
+</span></span></code></pre></div><p><img src="https://s2.loli.net/2022/04/04/BoIPuUwkVOrFEpq.png" alt=""></p>
+<p>​	智能指针Box<!-- raw HTML omitted -->是典型的引用类型，无法实现Copy，禁止实现按位复制（可以使用clone显式复制进行深调用）。</p>
+<h2 id="所有权机制">所有权机制</h2>
+<p>​	rust使用Copy Trait来区分值语义和引用语义，同时使用引入新语义：<strong>复制（Copy）和移动（Move）</strong>，保证内存安全和性能。</p>
+<p>​	对于可以安全地在栈上按位复制的类型，只需按位复制。对于堆上的类型，无法安全地在栈上按位复制，若想保证内存安全，只能深复制（在栈上重新开辟内存，带来性能开销）。若堆上数据不变，只在栈上移动指针位置，那就同时实现了内存安全和高性能。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">let</span> x <span style="color:#f92672">=</span> Box::new(<span style="color:#ae81ff">100</span>);
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">let</span> y <span style="color:#f92672">=</span> x;
+</span></span><span style="display:flex;"><span>	assert_eq!(y, <span style="color:#ae81ff">100</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//println!(&#34;{}&#34;, x) ERROR!!!
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p>​	以上，没有发生按位移动，只是将x的指针指向了y，杜绝了堆上同一值存在两个指针的情况，保证了内存安全。起初x对Box<!-- raw HTML omitted -->拥有所有权，之后x的所有权转移给了y，最终由y释放Box<!-- raw HTML omitted -->的堆内存。</p>
+<p>​	<strong>一个值的所有权被转移给另外一个变量绑定的过程，称为所有权转移。</strong></p>
+<p>​	Rust中每个值都有一个所有者，更进一步说就是，Rust中分配的每块内存都有其所有者，所有者负责该内存的释放和读写权限，并且每次每个值只能有唯一的所有者。这就是 Rust的<strong>所有权机制（OwnerShip）</strong>。</p>
+
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>Fumerem </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://fumerem.github.io/2022/%E4%BB%8E%E5%BA%95%E5%B1%82%E4%BA%86%E8%A7%A3rust%E7%9A%84%E6%89%80%E6%9C%89%E6%9D%83%E6%9C%BA%E5%88%B6/>https://fumerem.github.io/2022/%E4%BB%8E%E5%BA%95%E5%B1%82%E4%BA%86%E8%A7%A3rust%E7%9A%84%E6%89%80%E6%9C%89%E6%9D%83%E6%9C%BA%E5%88%B6/</span>
+            </p>
+            
+            
+            <p class="copyright-item lincese">
+                This article is licensed under the <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">creative commons attribution 4.0 international license</a>.
+            </p>
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://fumerem.github.io/tags/rust/">
+                    #rust</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://fumerem.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        
+        <a href="https://fumerem.github.io/2022/rust%E7%BC%96%E5%86%99shellcode%E5%8A%A0%E8%BD%BD%E5%99%A8/" class="next" rel="next" title="rust编写shellcode加载器">rust编写shellcode加载器&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2021 - 2022</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://fumerem.github.io">Fumerem</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/wujunze/hugo-theme-geek" target="_blank" rel="external nofollow">Hugo-theme-geek</a></span>
+    </div>
+</footer>
+
+
+
+
+
+<script src="/js/vendor_main.min.js" defer ></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+        </div>
+    </body>
+</html>

