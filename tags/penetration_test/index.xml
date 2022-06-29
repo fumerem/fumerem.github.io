@@ -6,11 +6,11 @@
     <description>Recent content in penetration_test on Fumerem&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 12 Jun 2022 23:00:52 +0800</lastBuildDate><atom:link href="https://fumerem.github.io/tags/penetration_test/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 25 May 2022 23:00:52 +0800</lastBuildDate><atom:link href="https://fumerem.github.io/tags/penetration_test/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>列举常见linux提权方式</title>
       <link>https://fumerem.github.io/2022/%E5%88%97%E4%B8%BE%E5%B8%B8%E8%A7%81linux%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F/</link>
-      <pubDate>Sun, 12 Jun 2022 23:00:52 +0800</pubDate>
+      <pubDate>Wed, 25 May 2022 23:00:52 +0800</pubDate>
       
       <guid>https://fumerem.github.io/2022/%E5%88%97%E4%B8%BE%E5%B8%B8%E8%A7%81linux%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F/</guid>
       <description>0x00信息收集 lsb_release -a 查看系统发行版本 uname -a 查看内核版本 whoami 检测当前用户权限 0x01 内核提权 CVE-2021-4034 pkexec 本地提权 https://github.com/berdav/CVE-2021-4034 centos和ubuntu通杀 脏牛提权-CVE</description>

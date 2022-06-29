@@ -6,16 +6,7 @@
     <description>Recent content in Tags on Fumerem&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 12 Jun 2022 23:00:52 +0800</lastBuildDate><atom:link href="https://fumerem.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>penetration_test</title>
-      <link>https://fumerem.github.io/tags/penetration_test/</link>
-      <pubDate>Sun, 12 Jun 2022 23:00:52 +0800</pubDate>
-      
-      <guid>https://fumerem.github.io/tags/penetration_test/</guid>
-      <description></description>
-    </item>
-    
+    <lastBuildDate>Sun, 12 Jun 2022 17:15:54 +0800</lastBuildDate><atom:link href="https://fumerem.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>offensive_security</title>
       <link>https://fumerem.github.io/tags/offensive_security/</link>
@@ -31,6 +22,15 @@
       <pubDate>Sun, 12 Jun 2022 17:15:54 +0800</pubDate>
       
       <guid>https://fumerem.github.io/tags/rust/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>penetration_test</title>
+      <link>https://fumerem.github.io/tags/penetration_test/</link>
+      <pubDate>Wed, 25 May 2022 23:00:52 +0800</pubDate>
+      
+      <guid>https://fumerem.github.io/tags/penetration_test/</guid>
       <description></description>
     </item>
     

@@ -6,22 +6,22 @@
     <description>Recent content in Categories on Fumerem&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 12 Jun 2022 23:00:52 +0800</lastBuildDate><atom:link href="https://fumerem.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>hack</title>
-      <link>https://fumerem.github.io/categories/hack/</link>
-      <pubDate>Sun, 12 Jun 2022 23:00:52 +0800</pubDate>
-      
-      <guid>https://fumerem.github.io/categories/hack/</guid>
-      <description></description>
-    </item>
-    
+    <lastBuildDate>Sun, 12 Jun 2022 17:15:54 +0800</lastBuildDate><atom:link href="https://fumerem.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>programming</title>
       <link>https://fumerem.github.io/categories/programming/</link>
       <pubDate>Sun, 12 Jun 2022 17:15:54 +0800</pubDate>
       
       <guid>https://fumerem.github.io/categories/programming/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>hack</title>
+      <link>https://fumerem.github.io/categories/hack/</link>
+      <pubDate>Wed, 25 May 2022 23:00:52 +0800</pubDate>
+      
+      <guid>https://fumerem.github.io/categories/hack/</guid>
       <description></description>
     </item>
     

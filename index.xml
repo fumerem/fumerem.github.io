@@ -5,17 +5,8 @@
     <description>Recent content in Fumerem&#39;s Blog on Fumerem&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 12 Jun 2022 23:00:52 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 12 Jun 2022 17:15:54 +0800</lastBuildDate>
     <atom:link href="https://fumerem.github.io/" rel="self" type="application/rss+xml" />
-    
-    <item>
-      <title>Posts</title>
-      <link>https://fumerem.github.io/posts/</link>
-      <pubDate>Sun, 12 Jun 2022 23:00:52 +0800</pubDate>
-      
-      <guid>https://fumerem.github.io/posts/</guid>
-      <description></description>
-    </item>
     
     <item>
       <title>about me</title>
@@ -33,6 +24,15 @@
 &lt;/ul&gt;
 &lt;p&gt;​	Unlike the vast majority of people,I hate trends,especially pop music and stars that people rave about and promote.I&amp;rsquo;m more comfortable with the classics,they calm me down.&lt;strong&gt;I don&amp;rsquo;t have much to write about because not many people will pay attention to me.&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;​	Furthermore,I sincerely thank the After-Dark and its creator,Josh Habdas,have been seemingly yeeted from the Internet,when I tried all the &lt;a href=&#34;https://github.com/hexojs/hexo&#34;&gt;hexo&lt;/a&gt; themes but was not satisfied,&lt;del&gt;wanted to develop my own theme but lacked energy and time&lt;/del&gt;,and had to choose &lt;a href=&#34;https://github.com/gohugoio/hugo&#34;&gt;hugo&lt;/a&gt; eventually.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Posts</title>
+      <link>https://fumerem.github.io/posts/</link>
+      <pubDate>Sun, 12 Jun 2022 17:15:54 +0800</pubDate>
+      
+      <guid>https://fumerem.github.io/posts/</guid>
+      <description></description>
     </item>
     
   </channel>
