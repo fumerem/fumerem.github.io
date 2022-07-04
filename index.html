@@ -24,6 +24,8 @@
 
     <link rel="canonical" href="https://fumerem.github.io/">
     
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    
     <link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:400,700">
     <link rel="stylesheet" href="/css/normalize.min.css">
     <link rel="stylesheet" href="/css/style.min.css">
@@ -99,9 +101,17 @@
         </li>
       
         <li class="social-item">
-          <a href="mailto:fumerem@mail.com" aria-label="Mail" >
+          <a href="index.xml" aria-label="Mail" >
             
-              <i class="fab fa-envelope" aria-hidden="true"></i>
+              <i class="fa fa-rss" aria-hidden="true"></i>
+            
+          </a>
+        </li>
+      
+        <li class="social-item">
+          <a href="https://t.me/AntiPanEntertainment" aria-label="Telegram" >
+            
+              <i class="fa fa-paper-plane" aria-hidden="true"></i>
             
           </a>
         </li>
@@ -114,11 +124,78 @@
 
       </div>
       
+        <footer class="footer">
+  <section class="container">
+    
+      <div class="sns-shares sp-sns-shares">
+        
+          <a class="sns-share twitter-share" href="https://twitter.com/intent/tweet?original_referer=https%3a%2f%2ffumerem.github.io%2f&ref_src=twsrc%5Etfw&text=REM%20%27s%20BLOG REM%20%27s%20BLOG&tw_p=tweetbutton&url=https%3a%2f%2ffumerem.github.io%2f"><i class="fab fa-twitter"></i></a>
+        
+        
+          <a class="fb btn sns-share fb-share" href="http://www.facebook.com/share.php?u=https%3a%2f%2ffumerem.github.io%2f" onclick="window.open(this.href, 'FBwindow', 'width=650, height=450, menubar=no, toolbar=no, scrollbars=yes'); return false;"><i class="fab fa-facebook-f"></i></a>
+        
+        
+          <a class="sns-share hatena-share" href="http://b.hatena.ne.jp/entry/https://fumerem.github.io/"  data-hatena-bookmark-layout="touch" data-hatena-bookmark-width="40" data-hatena-bookmark-height="40" title="このエントリーをはてなブックマークに追加"><i class="fas fa-bookmark"></i></a>
+        
+        
+          <a class="sns-share line-share" href="https://social-plugins.line.me/lineit/share?url=https%3a%2f%2ffumerem.github.io%2f"><i class="fab fa-line"></i></a>
+        
+        
+          <a class="sns-share linkedIn-share" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3a%2f%2ffumerem.github.io%2f"><i class="fab fa-linkedin"></i></a>
+        
+      </div>
+    
+    
+      <p>Enter a text here.</p>
+    
+     © 2022    ·  Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/naro143/hugo-coder-portfolio">CoderPortfolio</a>. 
+
+  </section>
+</footer>
+<div class="fixed-bar">
+  <section class="container">
+    
+      <p id="privateTriggerText">Do you want to find something usable?<a id="privateTrigger">Click!</a></p>
+    
+    
+      <div class="sns-shares pc-sns-shares">
+        
+          <a class="sns-share twitter-share" href="https://twitter.com/intent/tweet?original_referer=https%3a%2f%2ffumerem.github.io%2f&ref_src=twsrc%5Etfw&text=REM%20%27s%20BLOG REM%20%27s%20BLOG&tw_p=tweetbutton&url=https%3a%2f%2ffumerem.github.io%2f"><i class="fab fa-twitter"></i></a>
+        
+        
+          <a class="fb btn sns-share fb-share" href="http://www.facebook.com/share.php?u=https%3a%2f%2ffumerem.github.io%2f" onclick="window.open(this.href, 'FBwindow', 'width=650, height=450, menubar=no, toolbar=no, scrollbars=yes'); return false;"><i class="fab fa-facebook-f"></i></a>
+        
+        
+          <a class="sns-share hatena-share" href="http://b.hatena.ne.jp/entry/https://fumerem.github.io/"  data-hatena-bookmark-layout="touch" data-hatena-bookmark-width="40" data-hatena-bookmark-height="40" title="このエントリーをはてなブックマークに追加"><i class="fas fa-bookmark"></i></a>
+        
+        
+          <a class="sns-share line-share" href="https://social-plugins.line.me/lineit/share?url=https%3a%2f%2ffumerem.github.io%2f"><i class="fab fa-line"></i></a>
+        
+        
+          <a class="sns-share linkedIn-share" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3a%2f%2ffumerem.github.io%2f"><i class="fab fa-linkedin"></i></a>
+        
+      </div>
+    
+  </section>
+</div>
+
+      
     </main>
 
     
 
   <script src="/js/app.js"></script>
+  
+  <script>
+  (function($) {
+    $(function() {
+      $('#privateTrigger').on('click', function() {
+        $('.private').slideToggle();
+        $('#privateTriggerText').text("No, I have no value for you to seek.");
+      });
+    });
+   })(jQuery);
+  </script>
   
   </body>
 </html>
