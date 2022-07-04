@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Rem &#39;s Blog</title>
+    <title>REM &#39;s BLOG</title>
     <link>https://fumerem.github.io/</link>
-    <description>Recent content on Rem &#39;s Blog</description>
+    <description>Recent content on REM &#39;s BLOG</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Sun, 12 Jun 2022 17:15:54 +0800</lastBuildDate><atom:link href="https://fumerem.github.io/index.xml" rel="self" type="application/rss+xml" />
