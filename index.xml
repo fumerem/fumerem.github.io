@@ -35,10 +35,17 @@
 加载器原理:为shellcode分配动态内存,并创建进程执行shellcode
 0x01 加载器的编写 先列举一下加载器需要调用的windows的api
 VistualAlloc 申请内存
-LPVOID VirtualAlloc { LPVOID lpAddress, #要分配的内存区域的地址 DWORD dwSize, #分配的大小 DWORD flAllocationType, #分配的类型 DWORD flProtect #该内存的初始保护属性 };
+LPVOID VirtualAlloc {
+​	LPVOID lpAddress, #要分配的内存区域的地址
+​	DWORD dwSize, #分配的大小
+​	DWORD flAllocationType, #分配的类型
+​	DWORD flProtect #该内存的初始保护属性
+};
 代码实现
 unsafe { memory.ptr = Memory::VirtualAlloc( ptr::null(), //memory address to distribute len, //memory size Memory::MEM_COMMIT | Memory::MEM_RESERVE, //alloc type Memory::PAGE_EXECUTE_READWRITE, //protect attribute ) as *mut u8; }; CreateThread 创建进程调用CreateThread将在主线程的基础上创建一个新线程CreateThread
-HANDLE CreateThread ( LPSECURITY_ATTRIBUTES lpThreadAttributes,#线程安全属性 SIZE_T dwStackSize, #置初始栈的大小，以字节为单位 LPTHREAD_START_ROUTINE lpStartAddress, #指向线程函数的指针 LPVOID lpParameter, #向线程函数传递的参数 DWORD dwCreationFlags, #线程创建属性 LPDWORD lpThreadId #保存新线程的id )</description>
+HANDLE CreateThread (
+​	LPSECURITY_ATTRIBUTES lpThreadAttributes,#线程安全属性
+​	SIZE_T dwStackSize, #置初始栈的大小，以字节为单位</description>
     </item>
     
     <item>
