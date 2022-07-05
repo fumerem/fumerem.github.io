@@ -3,7 +3,7 @@
 
 # 0x00 信息收集
 
-```shell
+```bash
 lsb_release -a
 查看系统发行版本
 
@@ -209,7 +209,7 @@ ls -al               查看文件权限
 
 常见的拥有SUID的程序有
 
-> ```
+> 
 > nmap
 > vim
 > find
@@ -219,7 +219,7 @@ ls -al               查看文件权限
 > nano
 > cp
 > awk
-> ```
+> 
 
 
 

@@ -47,7 +47,7 @@ https://github.com/rebootuser/LinEnum
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/fumerem.github.io\/posts\/2022\/05\/25\/%E5%88%97%E4%B8%BE%E5%B8%B8%E8%A7%81linux%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F\/"
-        },"genre": "posts","keywords": "penetration_test","wordcount":  371 ,
+        },"genre": "posts","keywords": "penetration_test","wordcount":  362 ,
         "url": "https:\/\/fumerem.github.io\/posts\/2022\/05\/25\/%E5%88%97%E4%B8%BE%E5%B8%B8%E8%A7%81linux%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F\/","datePublished": "2022-05-25T23:00:52+08:00","dateModified": "2022-05-25T23:00:52+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -124,7 +124,7 @@ https://github.com/rebootuser/LinEnum
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">列举常见linux提权方式</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>REM</a></span>&nbsp;<span class="post-category">included in <a href="/categories/hack/"><i class="far fa-folder fa-fw"></i>hack</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-05-25">2022-05-25</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;371 words&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-05-25">2022-05-25</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;362 words&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;2 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -186,7 +186,7 @@ https://github.com/rebootuser/LinEnum
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">lsb_release -a
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">lsb_release -a
 </span></span><span class="line"><span class="cl">查看系统发行版本
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">uname -a
@@ -396,31 +396,16 @@ https://github.com/rebootuser/LinEnum
 </div><h2 id="2利用suid提权">2.利用SUID提权</h2>
 <p>常见的拥有SUID的程序有</p>
 <blockquote>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span><span class="lnt">9
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">nmap
-</span></span><span class="line"><span class="cl">vim
-</span></span><span class="line"><span class="cl">find
-</span></span><span class="line"><span class="cl">bash
-</span></span><span class="line"><span class="cl">more
-</span></span><span class="line"><span class="cl">less
-</span></span><span class="line"><span class="cl">nano
-</span></span><span class="line"><span class="cl">cp
-</span></span><span class="line"><span class="cl">awk
-</span></span></code></pre></td></tr></table>
-</div>
-</div></blockquote>
+<p>nmap
+vim
+find
+bash
+more
+less
+nano
+cp
+awk</p>
+</blockquote>
 <p>查看拥有SUID权限的文件,皆可.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
