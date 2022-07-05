@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on REM &#39;s BLOG</title>
-    <link>https://fumerem.github.io/tags/</link>
-    <description>Recent content in Tags on REM &#39;s BLOG</description>
+    <title>Tags on REM &#39;S BLOG</title>
+    <link>http://fumerem.github.io/tags/</link>
+    <description>Recent content in Tags on REM &#39;S BLOG</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 12 Jun 2022 17:15:54 +0800</lastBuildDate><atom:link href="https://fumerem.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 12 Jun 2022 17:15:54 +0800</lastBuildDate><atom:link href="http://fumerem.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>offensive_security</title>
-      <link>https://fumerem.github.io/tags/offensive_security/</link>
+      <link>http://fumerem.github.io/tags/offensive_security/</link>
       <pubDate>Sun, 12 Jun 2022 17:15:54 +0800</pubDate>
       
-      <guid>https://fumerem.github.io/tags/offensive_security/</guid>
+      <guid>http://fumerem.github.io/tags/offensive_security/</guid>
       <description></description>
     </item>
     
     <item>
       <title>rust</title>
-      <link>https://fumerem.github.io/tags/rust/</link>
+      <link>http://fumerem.github.io/tags/rust/</link>
       <pubDate>Sun, 12 Jun 2022 17:15:54 +0800</pubDate>
       
-      <guid>https://fumerem.github.io/tags/rust/</guid>
+      <guid>http://fumerem.github.io/tags/rust/</guid>
       <description></description>
     </item>
     
     <item>
       <title>penetration_test</title>
-      <link>https://fumerem.github.io/tags/penetration_test/</link>
+      <link>http://fumerem.github.io/tags/penetration_test/</link>
       <pubDate>Wed, 25 May 2022 23:00:52 +0800</pubDate>
       
-      <guid>https://fumerem.github.io/tags/penetration_test/</guid>
+      <guid>http://fumerem.github.io/tags/penetration_test/</guid>
       <description></description>
     </item>
     
