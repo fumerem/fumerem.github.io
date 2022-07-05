@@ -153,13 +153,15 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="c1">//thread id
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">).</span><span class="n">unwrap</span><span class="p">();</span><span class="w">
 </span></span></span></code></pre></div><h3 id="virtualfree">VirtualFree</h3>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="n">VirtualFreeEx</span><span class="p">{</span><span class="err">编辑</span><span class="w"> </span><span class="err">播报</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">HANDLE</span><span class="w"> </span><span class="n">hProcess</span><span class="p">,</span><span class="w"> </span><span class="c1">// 要释放内存所在进程的句柄
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">	</span><span class="n">LPVOID</span><span class="w"> </span><span class="n">lpAddress</span><span class="p">,</span><span class="w"> </span><span class="c1">// 区域地址
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">	</span><span class="n">DWORD</span><span class="w"> </span><span class="n">dwSize</span><span class="p">,</span><span class="w"> </span><span class="c1">// 区域大小，字节
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">	</span><span class="n">DWORD</span><span class="w"> </span><span class="n">dwFreeType</span><span class="w"> </span><span class="c1">//类型
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span><span class="w">
-</span></span></span></code></pre></div><p>代码实现</p>
+<blockquote>
+<p>VirtualFreeEx{编辑 播报</p>
+<p>​	HANDLE hProcess, // 要释放内存所在进程的句柄</p>
+<p>​	LPVOID lpAddress, // 区域地址</p>
+<p>​	DWORD dwSize, // 区域大小，字节</p>
+<p>​	DWORD dwFreeType //类型</p>
+<p>};</p>
+</blockquote>
+<p>代码实现</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="n">Memory</span>::<span class="n">VirtualFree</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">ptr</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="o">*</span><span class="k">mut</span><span class="w"> </span><span class="n">c_void</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">Memory</span>::<span class="n">MEM_RELEASE</span><span class="p">);</span><span class="w">
 </span></span></span></code></pre></div><p>lib.rs全部代码</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="n">ptr</span><span class="p">;</span><span class="w">
