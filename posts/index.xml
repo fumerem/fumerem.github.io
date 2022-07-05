@@ -1,19 +1,15 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Posts on REM &#39;S BLOG</title>
-    <link>http://fumerem.github.io/posts/</link>
-    <description>Recent content in Posts on REM &#39;S BLOG</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
-    <lastBuildDate>Sun, 12 Jun 2022 17:15:54 +0800</lastBuildDate><atom:link href="http://fumerem.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>rust编写shellcode加载器</title>
-      <link>http://fumerem.github.io/posts/rust/rust%E7%BC%96%E5%86%99shellcode%E5%8A%A0%E8%BD%BD%E5%99%A8/</link>
-      <pubDate>Sun, 12 Jun 2022 17:15:54 +0800</pubDate>
-      
-      <guid>http://fumerem.github.io/posts/rust/rust%E7%BC%96%E5%86%99shellcode%E5%8A%A0%E8%BD%BD%E5%99%A8/</guid>
-      <description>​	突发奇想用rust写一个shellcode加载器,花了两天研究了思路和大佬的代码.
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>All Posts - REM &#39;S BLOG</title>
+        <link>https://fumerem.github.io/posts/</link>
+        <description>All Posts | REM &#39;S BLOG</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 12 Jun 2022 17:15:54 &#43;0800</lastBuildDate><atom:link href="https://fumerem.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>rust编写shellcode加载器</title>
+    <link>https://fumerem.github.io/posts/2022/06/12/rust%E7%BC%96%E5%86%99shellcode%E5%8A%A0%E8%BD%BD%E5%99%A8/</link>
+    <pubDate>Sun, 12 Jun 2022 17:15:54 &#43;0800</pubDate>
+    <author>Author</author>
+    <guid>https://fumerem.github.io/posts/2022/06/12/rust%E7%BC%96%E5%86%99shellcode%E5%8A%A0%E8%BD%BD%E5%99%A8/</guid>
+    <description><![CDATA[​	突发奇想用rust写一个shellcode加载器,花了两天研究了思路和大佬的代码.
 项目地址:https://github.com/fumerem/shellcode_loader
 0x00 shellcode加载器原理 shellcode:一段16进制的机器码,后渗透中经常使用它来得到shell而得名.
 加载器原理:为shellcode分配动态内存,并创建进程执行shellcode
@@ -26,57 +22,40 @@ LPVOID VirtualAlloc {
 ​	DWORD flProtect #该内存的初始保护属性
 };
 代码实现
-unsafe { memory.ptr = Memory::VirtualAlloc( ptr::null(), //memory address to distribute len, //memory size Memory::MEM_COMMIT | Memory::MEM_RESERVE, //alloc type Memory::PAGE_EXECUTE_READWRITE, //protect attribute ) as *mut u8; }; CreateThread 创建进程调用CreateThread将在主线程的基础上创建一个新线程CreateThread
-HANDLE CreateThread (
-​	LPSECURITY_ATTRIBUTES lpThreadAttributes,#线程安全属性
-​	SIZE_T dwStackSize, #置初始栈的大小，以字节为单位</description>
-    </item>
-    
-    <item>
-      <title>列举常见linux提权方式</title>
-      <link>http://fumerem.github.io/posts/hack/%E5%88%97%E4%B8%BE%E5%B8%B8%E8%A7%81linux%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F/</link>
-      <pubDate>Wed, 25 May 2022 23:00:52 +0800</pubDate>
-      
-      <guid>http://fumerem.github.io/posts/hack/%E5%88%97%E4%B8%BE%E5%B8%B8%E8%A7%81linux%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F/</guid>
-      <description>0x00 信息收集 lsb_release -a 查看系统发行版本 uname -a 查看内核版本 whoami 检测当前用户权限 0x01 内核提权 CVE-2021-4034 pkexec 本地提权
+1 2 3 4 5 6 7 8 9 10 11 12 unsafe { memory.ptr = Memory::VirtualAlloc( ptr::null(), //memory address to distribute len, //memory size Memory::MEM_COMMIT | Memory::MEM_RESERVE, //alloc type Memory::PAGE_EXECUTE_READWRITE, //protect attribute ) as *mut u8; }; CreateThread 创建进程调用CreateThread将在主线程的基础上创建一个新线程CreateThread]]></description>
+</item><item>
+    <title>列举常见linux提权方式</title>
+    <link>https://fumerem.github.io/posts/2022/05/25/%E5%88%97%E4%B8%BE%E5%B8%B8%E8%A7%81linux%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F/</link>
+    <pubDate>Wed, 25 May 2022 23:00:52 &#43;0800</pubDate>
+    <author>Author</author>
+    <guid>https://fumerem.github.io/posts/2022/05/25/%E5%88%97%E4%B8%BE%E5%B8%B8%E8%A7%81linux%E6%8F%90%E6%9D%83%E6%96%B9%E5%BC%8F/</guid>
+    <description><![CDATA[0x00 信息收集 1 2 3 4 5 6 7 8 lsb_release -a 查看系统发行版本 uname -a 查看内核版本 whoami 检测当前用户权限 0x01 内核提权 CVE-2021-4034 pkexec 本地提权
 https://github.com/berdav/CVE-2021-4034
 centos和ubuntu通杀
-脏牛提权-CVE-2016-5195 条件: linux内核=&amp;gt;2.6.22
+脏牛提权-CVE-2016-5195 条件: linux内核=&gt;2.6.22
 https://github.com/FireFart/dirtycow
-gcc -pthread dirty.c -o dirty -lcrypt ./dirty mv /tmp/passwd.bak /etc/passwd CVE-2017-16995 影响版本: Linux Kernel Version 4.14-4.4 仅影响Ubuntu/Debian发行版本
+1 2 3 gcc -pthread dirty.c -o dirty -lcrypt ./dirty mv /tmp/passwd.bak /etc/passwd CVE-2017-16995 影响版本: Linux Kernel Version 4.14-4.4 仅影响Ubuntu/Debian发行版本
 https://github.com/Al1ex/CVE-2017-16995
-gcc exploit.c -o exploit ./exploit LINENUM.SH（本地LINUX枚举和提权辅助脚本） 帮助提取linux系统信息
+1 2 gcc exploit.c -o exploit ./exploit LINENUM.SH（本地LINUX枚举和提权辅助脚本） 帮助提取linux系统信息
 https://github.com/rebootuser/LinEnum
-chmod +x /tmp/LinEnum.sh sh /tmp/LinEnum.sh &amp;amp;gt; /tmp/getinfo.txt linux-exploit-suggester2 https://github.com/jondonas/linux-exploit-suggester-2
-帮助查看系统存在的提取漏洞
-perl linux-exploit-suggester-2.pl kali searchexploit ​	searchsploit是一个用于Exploit-DB的命令行搜索工具，可以帮助我们查找渗透模块。
-语法
-searchsploit [options] term1 [term2] &amp;hellip; [termN]</description>
-    </item>
-    
-    <item>
-      <title>从底层了解rust的所有权机制</title>
-      <link>http://fumerem.github.io/posts/rust/%E4%BB%8E%E5%BA%95%E5%B1%82%E4%BA%86%E8%A7%A3rust%E7%9A%84%E6%89%80%E6%9C%89%E6%9D%83%E6%9C%BA%E5%88%B6/</link>
-      <pubDate>Tue, 19 Apr 2022 17:15:54 +0800</pubDate>
-      
-      <guid>http://fumerem.github.io/posts/rust/%E4%BB%8E%E5%BA%95%E5%B1%82%E4%BA%86%E8%A7%A3rust%E7%9A%84%E6%89%80%E6%9C%89%E6%9D%83%E6%9C%BA%E5%88%B6/</guid>
-      <description>rust有一处特殊的地方，所有权。
+1 2 chmod +x /tmp/LinEnum.sh sh /tmp/LinEnum.sh &amp;gt; /tmp/getinfo.txt linux-exploit-suggester2 https://github.]]></description>
+</item><item>
+    <title>从底层了解rust的所有权机制</title>
+    <link>https://fumerem.github.io/posts/2022/04/19/%E4%BB%8E%E5%BA%95%E5%B1%82%E4%BA%86%E8%A7%A3rust%E7%9A%84%E6%89%80%E6%9C%89%E6%9D%83%E6%9C%BA%E5%88%B6/</link>
+    <pubDate>Tue, 19 Apr 2022 17:15:54 &#43;0800</pubDate>
+    <author>Author</author>
+    <guid>https://fumerem.github.io/posts/2022/04/19/%E4%BB%8E%E5%BA%95%E5%B1%82%E4%BA%86%E8%A7%A3rust%E7%9A%84%E6%89%80%E6%9C%89%E6%9D%83%E6%9C%BA%E5%88%B6/</guid>
+    <description><![CDATA[rust有一处特殊的地方，所有权。
 0x00 C++和rust的区别 先看c++
-#include &amp;lt;iostream&amp;gt; using namespace std; int main() { string str1 = &amp;#34;hello&amp;#34;; string str2 = str1; cout &amp;lt;&amp;lt; str1 &amp;lt;&amp;lt; str2; } 声明字符串str1，将str1的值赋值给str2，然后打印str1，str2，编译没有问题。
+1 2 3 4 5 6 7 #include &lt;iostream&gt; using namespace std; int main() { string str1 = &#34;hello&#34;; string str2 = str1; cout &lt;&lt; str1 &lt;&lt; str2; } 声明字符串str1，将str1的值赋值给str2，然后打印str1，str2，编译没有问题。
 再看rust
-fn main() { let a = String::from(&amp;#34;hello&amp;#34;); let b = a; println!(&amp;#34;{} {}&amp;#34;, a, b) } 编译一下
+1 2 3 4 5 fn main() { let a = String::from(&#34;hello&#34;); let b = a; println!(&#34;{} {}&#34;, a, b) } 编译一下
 好的，报错了，怎么回事呢。a的所有权已经移交给b，所以无法借用a。
 那么rust为什么要这么设计，不麻烦吗？
 0x01 为什么设计所有权 ​	当今计算机内存栈和堆的分配机制，决定了编程语言中的值主要分两类：值类型（Value）和引用类型（Reference）。
 ​	值类型：数据直接存储在栈中的数据类型，比如数值，布尔值，结构体。因为在栈中，操作效率比较高。值类型作为右值执行赋值时，会自动复制一个新副本。
 ​	引用类型：数据存储在堆中，栈中储存值的地址（指针），比如数组，字符串。操作效率一般比较低。像java，python等语言用GC回收，c，c++等系统语言须程序员手动回收。
 ​	随着编程语言的发展，类型越来愈丰富，值类型和引用类型已无法完美描述类型。比如Vector容器类型，内部可以包含数值类型，也可以包含引用类型，它怎么分类？
-​	之后便引出了：值语义（Value Semantic）和引用语义（Reference Semantic）
-​	值语义：按位复制后，与原始对象无关
-​	引用语义：也称指针语义。一般指数据存放堆上，通过栈上的指针来管理堆中数据，并且引用语义禁止按位复制
-​	值语义保证了数据的独立性，如果想修改一个值，只能通过修改它自身来修改，无法通过修改它的复制品来修改。而引用语义禁止按位复制，因为按位复制只能复制栈上的指针，存放在堆的数值同时存在两个指针对它管理，影响内存安全。
-fn main() { let x = 100; let y = x; assert_eq!</description>
-    </item>
-    
-  </channel>
+​	之后便引出了：值语义（Value Semantic）和引用语义（Reference Semantic）]]></description>
+</item></channel>
 </rss>

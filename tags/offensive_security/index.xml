@@ -1,19 +1,15 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>offensive_security on REM &#39;S BLOG</title>
-    <link>http://fumerem.github.io/tags/offensive_security/</link>
-    <description>Recent content in offensive_security on REM &#39;S BLOG</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
-    <lastBuildDate>Sun, 12 Jun 2022 17:15:54 +0800</lastBuildDate><atom:link href="http://fumerem.github.io/tags/offensive_security/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>rust编写shellcode加载器</title>
-      <link>http://fumerem.github.io/posts/rust/rust%E7%BC%96%E5%86%99shellcode%E5%8A%A0%E8%BD%BD%E5%99%A8/</link>
-      <pubDate>Sun, 12 Jun 2022 17:15:54 +0800</pubDate>
-      
-      <guid>http://fumerem.github.io/posts/rust/rust%E7%BC%96%E5%86%99shellcode%E5%8A%A0%E8%BD%BD%E5%99%A8/</guid>
-      <description>​	突发奇想用rust写一个shellcode加载器,花了两天研究了思路和大佬的代码.
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>offensive_security - Tag - REM &#39;S BLOG</title>
+        <link>https://fumerem.github.io/tags/offensive_security/</link>
+        <description>offensive_security - Tag - REM &#39;S BLOG</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 12 Jun 2022 17:15:54 &#43;0800</lastBuildDate><atom:link href="https://fumerem.github.io/tags/offensive_security/" rel="self" type="application/rss+xml" /><item>
+    <title>rust编写shellcode加载器</title>
+    <link>https://fumerem.github.io/posts/2022/06/12/rust%E7%BC%96%E5%86%99shellcode%E5%8A%A0%E8%BD%BD%E5%99%A8/</link>
+    <pubDate>Sun, 12 Jun 2022 17:15:54 &#43;0800</pubDate>
+    <author>Author</author>
+    <guid>https://fumerem.github.io/posts/2022/06/12/rust%E7%BC%96%E5%86%99shellcode%E5%8A%A0%E8%BD%BD%E5%99%A8/</guid>
+    <description><![CDATA[​	突发奇想用rust写一个shellcode加载器,花了两天研究了思路和大佬的代码.
 项目地址:https://github.com/fumerem/shellcode_loader
 0x00 shellcode加载器原理 shellcode:一段16进制的机器码,后渗透中经常使用它来得到shell而得名.
 加载器原理:为shellcode分配动态内存,并创建进程执行shellcode
@@ -26,11 +22,6 @@ LPVOID VirtualAlloc {
 ​	DWORD flProtect #该内存的初始保护属性
 };
 代码实现
-unsafe { memory.ptr = Memory::VirtualAlloc( ptr::null(), //memory address to distribute len, //memory size Memory::MEM_COMMIT | Memory::MEM_RESERVE, //alloc type Memory::PAGE_EXECUTE_READWRITE, //protect attribute ) as *mut u8; }; CreateThread 创建进程调用CreateThread将在主线程的基础上创建一个新线程CreateThread
-HANDLE CreateThread (
-​	LPSECURITY_ATTRIBUTES lpThreadAttributes,#线程安全属性
-​	SIZE_T dwStackSize, #置初始栈的大小，以字节为单位</description>
-    </item>
-    
-  </channel>
+1 2 3 4 5 6 7 8 9 10 11 12 unsafe { memory.ptr = Memory::VirtualAlloc( ptr::null(), //memory address to distribute len, //memory size Memory::MEM_COMMIT | Memory::MEM_RESERVE, //alloc type Memory::PAGE_EXECUTE_READWRITE, //protect attribute ) as *mut u8; }; CreateThread 创建进程调用CreateThread将在主线程的基础上创建一个新线程CreateThread]]></description>
+</item></channel>
 </rss>
